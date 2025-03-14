@@ -1,0 +1,55 @@
+{{ ... }}
+        # Ingresar resultados
+        print(format_subtitle("Ingrese los resultados"))
+        strokes = []
+        points = []
+        
+        for i, (par, hcp) in enumerate(zip(pars, handicaps), 1):
+            # Obtener los golpes extra para este hoyo
+            extra_stroke = handicap_strokes[i-1] if i <= len(handicap_strokes) else 0
+            
+            # Solicitar golpes
+            stroke = get_number_input(
+                f"Hoyo {i} - Par {par} - Hcp {hcp} - Golpes extra: {extra_stroke}",
+                min_value=1,
+                max_value=20
+            )
+            if stroke is None:
+                return
+            
+            strokes.append(stroke)
+            
+            # Calcular puntos
+            point = calculate_stableford(stroke, par, extra_stroke)
+            points.append(point)
+            
+            print(f"  Puntos: {point}")
+            print()
+{{ ... }}
+        # Guardar tarjeta
+        result, message = self.controller.add_scorecard(
+            player.id,
+            course.id,
+            date,
+            strokes,
+            points,
+            playing_coefficient,
+            handicap_coefficient
+        )
+{{ ... }}
+        # Preparar nuevos datos
+        new_strokes = strokes.copy()
+        new_points = points.copy()
+{{ ... }}
+        # Guardar cambios
+        updated_scorecard = Scorecard(
+            id=scorecard.id,
+            player_id=scorecard.player_id,
+            course_id=scorecard.course_id,
+            date=new_date,
+            strokes=new_strokes,
+            points=new_points,
+            handicap_coefficient=new_playing_coefficient,
+            playing_handicap=new_handicap_coefficient
+        )
+{{ ... }}
