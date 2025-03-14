@@ -186,17 +186,6 @@ class ScorecardDisplayView:
         # Obtener información del jugador y campo
         player = self.player_controller.get_player(scorecard.player_id)
         
-        # Depuración: Imprimir información del scorecard
-        print(f"DEBUG - ID: {scorecard.id}")
-        print(f"DEBUG - Jugador ID: {scorecard.player_id}")
-        print(f"DEBUG - Campo ID: {scorecard.course_id}")
-        print(f"DEBUG - Nombre del campo: {scorecard.course_name}")
-        print(f"DEBUG - Ubicación del campo: {scorecard.course_location}")
-        print(f"DEBUG - Slope: {scorecard.course_slope}")
-        print(f"DEBUG - Rating: {scorecard.course_rating}")
-        print(f"DEBUG - Pars: {scorecard.course_hole_pars}")
-        print(f"DEBUG - Handicaps: {scorecard.course_hole_handicaps}")
-        
         # Mostrar cabecera
         clear_screen()
         print(format_title("DETALLES DE TARJETA"))
