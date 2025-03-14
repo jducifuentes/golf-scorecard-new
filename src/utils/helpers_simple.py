@@ -1,5 +1,5 @@
 """
-Funciones auxiliares simplificadas para la aplicación.
+ Funciones auxiliares simplificadas para la aplicación.
 """
 import os
 import sys
