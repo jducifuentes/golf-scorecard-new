@@ -17,14 +17,15 @@ class CourseView:
     Vista para gestionar la interacción con campos de golf.
     """
     
-    def __init__(self, controller=None):
+    def __init__(self, db=None):
         """
         Inicializa la vista con un controlador.
         
         Args:
-            controller (CourseController, optional): Controlador de campos
+            db: Instancia de la base de datos
         """
-        self.controller = controller or CourseController()
+        self.db = db
+        self.controller = CourseController(db)
     
     def show_courses(self):
         """Muestra la lista de campos"""

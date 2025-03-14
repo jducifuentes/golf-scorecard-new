@@ -7,7 +7,7 @@ from tabulate import tabulate
 
 from src.views.player_view import PlayerView
 from src.views.course_view import CourseView
-from src.views.scorecard_view import ScorecardView
+from src.views.scorecard.scorecard_view import ScorecardView
 from src.utils.formatters import format_title, format_menu_option, format_info
 from src.utils.helpers_simple import clear_screen, get_input, get_number_input
 
@@ -19,11 +19,17 @@ class MenuViewSimple:
     Vista para el menú principal de la aplicación (versión simplificada).
     """
     
-    def __init__(self):
-        """Inicializa la vista del menú"""
-        self.player_view = PlayerView()
-        self.course_view = CourseView()
-        self.scorecard_view = ScorecardView()
+    def __init__(self, db=None):
+        """
+        Inicializa la vista del menú.
+        
+        Args:
+            db: Instancia de la base de datos
+        """
+        self.db = db
+        self.player_view = PlayerView(db)
+        self.course_view = CourseView(db)
+        self.scorecard_view = ScorecardView(db)
         self.running = True
     
     def display_header(self):
@@ -97,11 +103,11 @@ class MenuViewSimple:
         
         # Opciones de tarjetas
         elif option == 5:
-            self.scorecard_view.show_scorecards()
+            self.scorecard_view.show_menu()
         elif option == 6:
-            self.scorecard_view.add_scorecard()
+            self.scorecard_view.create_scorecard()
         elif option == 7:
-            self.scorecard_view.filter_scorecards()
+            self.scorecard_view.search_scorecards()
         
         # Opciones de sistema
         elif option == 'q' :

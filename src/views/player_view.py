@@ -17,14 +17,15 @@ class PlayerView:
     Vista para gestionar la interacción con jugadores.
     """
     
-    def __init__(self, controller=None):
+    def __init__(self, db=None):
         """
         Inicializa la vista con un controlador.
         
         Args:
-            controller (PlayerController, optional): Controlador de jugadores
+            db: Instancia de la base de datos
         """
-        self.controller = controller or PlayerController()
+        self.db = db
+        self.controller = PlayerController(db)
     
     def show_players(self):
         """Muestra la lista de jugadores"""

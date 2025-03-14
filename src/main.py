@@ -25,7 +25,7 @@ def main():
         db.create_tables()
         
         # Iniciar el menú
-        menu = MenuViewSimple()
+        menu = MenuViewSimple(db)
         menu.run()
     except KeyboardInterrupt:
         print("\nSaliendo de la aplicación...")

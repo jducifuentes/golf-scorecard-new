@@ -64,6 +64,7 @@ class Database:
                     course_id INTEGER NOT NULL,
                     date TEXT NOT NULL,
                     strokes TEXT NOT NULL,
+                    handicap_strokes TEXT NOT NULL,
                     points TEXT NOT NULL,
                     handicap_coefficient INTEGER NOT NULL,
                     playing_handicap REAL,
@@ -229,7 +230,7 @@ class Database:
 
     # ===== Operaciones con Tarjetas =====
     
-    def add_scorecard(self, player_id, course_id, date, strokes, points, handicap_coefficient, playing_handicap=None):
+    def add_scorecard(self, player_id, course_id, date, strokes, points, handicap_coefficient, playing_handicap=None, handicap_strokes=None):
         """
         Añade una nueva tarjeta a la base de datos.
         
@@ -241,6 +242,7 @@ class Database:
             points (str): Puntos por hoyo en formato JSON
             handicap_coefficient (float): Coeficiente de hándicap aplicado
             playing_handicap (float, optional): Hándicap de juego final
+            handicap_strokes (str, optional): Golpes de hándicap por hoyo en formato JSON
             
         Returns:
             int: ID de la tarjeta creada o None si falla
@@ -253,16 +255,16 @@ class Database:
             # Preparar la consulta SQL
             query = """
                 INSERT INTO scorecards (
-                    player_id, course_id, date, strokes, points, 
+                    player_id, course_id, date, strokes, handicap_strokes, points, 
                     handicap_coefficient, playing_handicap
-                ) VALUES (?, ?, ?, ?, ?, ?, ?)
+                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?)
             """
             
             # Ejecutar la consulta
             cursor = self.connection.cursor()
             cursor.execute(
                 query, 
-                (player_id, course_id, date, strokes, points, 
+                (player_id, course_id, date, strokes, handicap_strokes, points, 
                  handicap_coefficient, playing_handicap)
             )
             
@@ -304,7 +306,8 @@ class Database:
         """Obtiene todas las tarjetas con información de jugador y campo"""
         with self.connection:
             return self.connection.execute('''
-                SELECT s.*, p.first_name, p.surname, c.name, c.location, s.playing_handicap
+                SELECT s.*, p.first_name, p.surname, c.name, c.location, c.slope, c.course_rating, c.par_total, 
+                       c.hole_pars, c.hole_handicaps
                 FROM scorecards s
                 LEFT JOIN players p ON s.player_id = p.id
                 LEFT JOIN courses c ON s.course_id = c.id
@@ -318,7 +321,7 @@ class Database:
             self.connection.execute('DELETE FROM scorecards WHERE id = ?', (scorecard_id,))
             return True
 
-    def update_scorecard(self, scorecard_id, player_id, course_id, date, strokes, points,
+    def update_scorecard(self, scorecard_id, player_id, course_id, date, strokes, handicap_strokes, points,
                         handicap_coefficient, playing_handicap):
         """
         Actualiza una tarjeta existente.
@@ -329,6 +332,7 @@ class Database:
             course_id (int): ID del campo
             date (str): Fecha de la ronda
             strokes (str): Golpes por hoyo en formato JSON
+            handicap_strokes (str): Golpes de hándicap por hoyo en formato JSON
             points (str): Puntos por hoyo en formato JSON
             handicap_coefficient (float): Coeficiente de hándicap aplicado
             playing_handicap (float): Hándicap de juego final
@@ -340,7 +344,7 @@ class Database:
             # Preparar la consulta SQL
             query = """
                 UPDATE scorecards
-                SET player_id = ?, course_id = ?, date = ?, strokes = ?, points = ?,
+                SET player_id = ?, course_id = ?, date = ?, strokes = ?, handicap_strokes = ?, points = ?,
                     handicap_coefficient = ?, playing_handicap = ?
                 WHERE id = ?
             """
@@ -349,7 +353,7 @@ class Database:
             cursor = self.connection.cursor()
             cursor.execute(
                 query, 
-                (player_id, course_id, date, strokes, points,
+                (player_id, course_id, date, strokes, handicap_strokes, points,
                  handicap_coefficient, playing_handicap, scorecard_id)
             )
             
@@ -379,11 +383,13 @@ class Database:
             list: Lista de tarjetas que cumplen los filtros
         """
         filters = filters or {}
+        
         query = """
-            SELECT s.*, p.first_name, p.surname, c.name, c.location
+            SELECT s.*, p.first_name, p.surname, c.name, c.location, c.slope, c.course_rating, c.par_total, 
+                   c.hole_pars, c.hole_handicaps
             FROM scorecards s
-            JOIN players p ON s.player_id = p.id
-            JOIN courses c ON s.course_id = c.id
+            LEFT JOIN players p ON s.player_id = p.id
+            LEFT JOIN courses c ON s.course_id = c.id
             WHERE 1=1
         """
         params = []
