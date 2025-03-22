@@ -7,7 +7,6 @@ from src.controllers.player_controller import PlayerController
 from src.controllers.course_controller import CourseController
 from src.views.base_view import BaseView
 from src.views.utils import format_title, format_info, clear_screen, pause
-from src.views.scorecard.scorecard_stats_view import ScorecardStatsView
 from src.views.scorecard.scorecard_list_view import ScorecardListView
 from src.views.scorecard.scorecard_edit_view import ScorecardEditView
 from src.views.scorecard.scorecard_create_view import ScorecardCreateView
@@ -33,11 +32,6 @@ class ScorecardView(BaseView):
         self.course_controller = CourseController(db)
         
         # Inicializar vistas específicas
-        self.stats_view = ScorecardStatsView(
-            self.scorecard_controller,
-            self.player_controller,
-            self.course_controller
-        )
         self.list_view = ScorecardListView(
             self.scorecard_controller,
             self.player_controller,
@@ -71,8 +65,7 @@ class ScorecardView(BaseView):
             print("  1. Ver todas las tarjetas")
             print("  2. Buscar tarjetas")
             print("  3. Crear nueva tarjeta")
-            print("  4. Ver estadísticas")
-            print("  5. Exportar tarjetas")
+            print("  4. Exportar tarjetas")
             print("  0. Volver al menú principal")
             
             option = input("\nSeleccione una opción: ")
@@ -91,9 +84,6 @@ class ScorecardView(BaseView):
                 self.create_scorecard()
             
             elif option == "4":
-                self.stats_view.show_menu()
-            
-            elif option == "5":
                 self.export_view.show_export_menu()
             
             elif option == "0":

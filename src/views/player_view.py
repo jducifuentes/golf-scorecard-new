@@ -49,9 +49,10 @@ class PlayerView:
         print(f"\n{Fore.YELLOW}Opciones:{Style.RESET_ALL}")
         print(format_menu_option("1", "Editar jugador"))
         print(format_menu_option("2", "Eliminar jugador"))
+        print(format_menu_option("3", "Añadir jugador"))
         print(format_menu_option("0", "Volver"))
         
-        option = get_number_input("Seleccione una opción", default=0, min_value=0, max_value=2, allow_float=False)
+        option = get_number_input("Seleccione una opción", default=0, min_value=0, max_value=3, allow_float=False)
         
         if option == 0:
             return
@@ -67,6 +68,11 @@ class PlayerView:
             if player_id is None:
                 return
             self.delete_player(player_id)
+        elif option == 3:
+            # Añadir nuevo jugador
+            self.add_player()
+            # Volver a mostrar la lista después de añadir
+            self.show_players()
     
     def edit_player(self, player_id=None):
         """
@@ -208,6 +214,8 @@ class PlayerView:
             print(format_error(message))
         
         pause()
+        # Volver a mostrar la lista de jugadores después de eliminar
+        self.show_players()
     
     def add_player(self):
         """Añade un nuevo jugador"""

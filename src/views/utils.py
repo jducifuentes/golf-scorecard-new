@@ -125,10 +125,11 @@ def format_table(headers, rows, widths=None, highlight_last_row=False):
                         # Calcular el espacio visible (sin códigos ANSI)
                         import re
                         clean_cell = re.sub(r'\033\[[0-9;]+m', '', cell_str)
-                        padding = widths[i] - 2 - len(clean_cell)
-                        formatted_cell = f" {cell_str}{' ' * padding} "
+                        padding_left = (widths[i] - 2 - len(clean_cell)) // 2
+                        padding_right = widths[i] - 2 - len(clean_cell) - padding_left
+                        formatted_cell = f" {' ' * padding_left}{cell_str}{' ' * padding_right} "
                     else:
-                        formatted_cell = f" {cell_str.ljust(widths[i]-2)} "
+                        formatted_cell = f" {cell_str.center(widths[i]-2)} "
                 formatted_row += formatted_cell + "|"
             else:
                 formatted_row += " " * (widths[-1] - 1) + "|"

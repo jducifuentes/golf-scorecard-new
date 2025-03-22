@@ -68,7 +68,7 @@ class ScorecardEditView(BaseView):
             print(f"\n{Fore.YELLOW}{Style.BRIGHT}Detalles por Hoyo:{Style.RESET_ALL}")
             
             # Preparar datos para la tabla
-            headers = ["Hoyo", "Hdcp", "Par", "Golpes", "Puntos"]
+            headers = ["Hoyo", "Hdcp", "Par", "Golpes", "Stableford", "Scratch"]
             table_data = []
             
             for i, stroke in enumerate(scorecard.strokes):
@@ -95,6 +95,9 @@ class ScorecardEditView(BaseView):
                     # Obtener puntos si están disponibles
                     points = scorecard.points[i] if hasattr(scorecard, 'points') and i < len(scorecard.points) else "-"
                     
+                    # Calcular puntos scratch (sin hándicap)
+                    scratch_points = ScorecardUtils.calculate_scratch_points(stroke, par)
+                    
                     # Formatear golpes y puntos con colores
                     stroke_text = ScorecardUtils.format_stroke_result(
                         stroke, par, 
@@ -102,6 +105,7 @@ class ScorecardEditView(BaseView):
                         hole_handicap=hole_handicap
                     )
                     points_text = ScorecardUtils.format_points(points) if points != "-" else "-"
+                    scratch_points_text = ScorecardUtils.format_points(scratch_points)
                     
                     # Añadir fila a la tabla
                     table_data.append([
@@ -109,8 +113,14 @@ class ScorecardEditView(BaseView):
                         hole_handicap,
                         par_text,
                         stroke_text,
-                        points_text
+                        points_text,
+                        scratch_points_text
                     ])
+            
+            # Calcular total de puntos scratch
+            total_scratch_points = sum(ScorecardUtils.calculate_scratch_points(stroke, course.hole_pars[i]) 
+                                    for i, stroke in enumerate(scorecard.strokes) 
+                                    if i < len(course.hole_pars))
             
             # Añadir fila de totales
             table_data.append([
@@ -118,7 +128,8 @@ class ScorecardEditView(BaseView):
                 "",
                 course.par_total,
                 scorecard.total_strokes(),
-                scorecard.total_points() if hasattr(scorecard, 'total_points') else '-'
+                scorecard.total_points() if hasattr(scorecard, 'total_points') else '-',
+                total_scratch_points
             ])
             
             # Mostrar tabla formateada
@@ -377,7 +388,6 @@ class ScorecardEditView(BaseView):
             print("  1. Ver detalles")
             print("  2. Editar tarjeta")
             print("  3. Eliminar tarjeta")
-            print("  4. Ver estadísticas")
             print("  0. Volver")
             
             option = input("\nSeleccione una opción: ")
@@ -396,16 +406,6 @@ class ScorecardEditView(BaseView):
                 # Eliminar tarjeta
                 if self.delete_scorecard(scorecard.id):
                     return True
-            
-            elif option == "4":
-                # Ver estadísticas
-                from src.views.scorecard.scorecard_stats_view import ScorecardStatsView
-                stats_view = ScorecardStatsView(
-                    self.scorecard_controller,
-                    self.player_controller,
-                    self.course_controller
-                )
-                stats_view.show_scorecard_stats(scorecard.id)
             
             elif option == "0":
                 # Volver

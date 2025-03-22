@@ -189,6 +189,36 @@ class ScorecardUtils:
             return f"{diff} sobre par"
     
     @staticmethod
+    def calculate_scratch_points(strokes, par):
+        """
+        Calcula los puntos Stableford sin aplicar hándicap (scratch).
+        
+        Args:
+            strokes: Número de golpes
+            par: Par del hoyo
+            
+        Returns:
+            int: Puntos Stableford
+        """
+        if strokes is None or par is None:
+            return 0
+            
+        # Calcular diferencia con el par
+        diff = strokes - par
+        
+        # Calcular puntos según el sistema Stableford
+        if diff <= -2:  # Eagle o mejor
+            return 4
+        elif diff == -1:  # Birdie
+            return 3
+        elif diff == 0:  # Par
+            return 2
+        elif diff == 1:  # Bogey
+            return 1
+        else:  # Doble bogey o peor
+            return 0
+
+    @staticmethod
     def calculate_stats(scorecard, course=None):
         """
         Calcula estadísticas para una tarjeta.
