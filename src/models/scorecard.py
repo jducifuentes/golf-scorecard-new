@@ -183,73 +183,114 @@ class Scorecard:
         """
         if not row:
             return None
-        
+            
         # Convertir JSON a listas
         try:
-            strokes = json.loads(row['strokes']) if 'strokes' in row else []
-            handicap_strokes = json.loads(row['handicap_strokes']) if 'handicap_strokes' in row else []
-            points = json.loads(row['points']) if 'points' in row else []
+            strokes = json.loads(row.get('strokes')) if row.get('strokes') else []
+        except (KeyError, json.JSONDecodeError, TypeError):
+            strokes = []
             
-            # Crear instancia
-            scorecard = cls(
-                id=row['id'] if 'id' in row else None,
-                player_id=row['player_id'] if 'player_id' in row else None,
-                course_id=row['course_id'] if 'course_id' in row else None,
-                date=row['date'] if 'date' in row else None,
-                strokes=strokes,
-                handicap_strokes=handicap_strokes,
-                points=points,
-                playing_handicap=row['playing_handicap'] if 'playing_handicap' in row else None,
-                handicap_coefficient=row['handicap_coefficient'] if 'handicap_coefficient' in row else 100
-            )
-            
-            # Añadir información adicional si está disponible
-            if 'first_name' in row and 'surname' in row:
-                scorecard.player_name = f"{row['first_name']} {row['surname']}"
-            
-            if 'name' in row:
-                scorecard.course_name = row['name']
-            
-            # Añadir datos del campo si están disponibles
-            course_data = {}
-            
-            if 'location' in row:
-                course_data['location'] = row['location']
+        try:
+            points = json.loads(row.get('points')) if row.get('points') else []
+        except (KeyError, json.JSONDecodeError, TypeError):
+            points = []
+        
+        # Calcular los golpes con hándicap dinámicamente
+        handicap_strokes = []
+        
+        # Si tenemos la información del campo y el hándicap de juego, calculamos los golpes con hándicap
+        if row.get('hole_handicaps') and row.get('playing_handicap') is not None:
+            try:
+                hole_handicaps = json.loads(row.get('hole_handicaps')) if isinstance(row.get('hole_handicaps'), str) else row.get('hole_handicaps')
+                playing_handicap = row.get('playing_handicap')
                 
-            if 'slope' in row:
-                course_data['slope'] = row['slope']
-                
-            if 'course_rating' in row:
-                course_data['course_rating'] = row['course_rating']
-                
-            if 'par_total' in row:
-                course_data['par_total'] = row['par_total']
-            
-            # Procesar hole_pars y hole_handicaps
-            if 'hole_pars' in row and row['hole_pars']:
-                try:
-                    if isinstance(row['hole_pars'], str):
-                        course_data['hole_pars'] = json.loads(row['hole_pars'])
+                for i, stroke in enumerate(strokes):
+                    if i < len(hole_handicaps):
+                        hole_handicap = hole_handicaps[i]
+                        
+                        # Calcular golpes extra por hándicap para este hoyo
+                        extra_strokes = 0
+                        if playing_handicap is not None:
+                            # Distribuir el hándicap según la dificultad de los hoyos
+                            if playing_handicap >= hole_handicap:
+                                extra_strokes += 1
+                            # Para hándicaps altos, se pueden asignar más de un golpe extra por hoyo
+                            if playing_handicap >= hole_handicap + 18:
+                                extra_strokes += 1
+                            # Para hándicaps muy altos
+                            if playing_handicap >= hole_handicap + 36:
+                                extra_strokes += 1
+                        
+                        # Calcular golpes netos (con hándicap)
+                        net_stroke = max(1, stroke - extra_strokes)
+                        handicap_strokes.append(net_stroke)
                     else:
-                        course_data['hole_pars'] = row['hole_pars']
-                except Exception as e:
-                    print(f"Error al procesar hole_pars: {str(e)}")
-                    course_data['hole_pars'] = []
-                    
-            if 'hole_handicaps' in row and row['hole_handicaps']:
-                try:
-                    if isinstance(row['hole_handicaps'], str):
-                        course_data['hole_handicaps'] = json.loads(row['hole_handicaps'])
-                    else:
-                        course_data['hole_handicaps'] = row['hole_handicaps']
-                except Exception as e:
-                    print(f"Error al procesar hole_handicaps: {str(e)}")
-                    course_data['hole_handicaps'] = []
+                        # Si no hay información de hándicap para este hoyo, usar el mismo valor
+                        handicap_strokes.append(stroke)
+            except Exception as e:
+                print(f"Error al calcular handicap_strokes: {str(e)}")
+                handicap_strokes = strokes.copy()
+        else:
+            # Si no tenemos la información necesaria, los golpes netos son iguales a los brutos
+            handicap_strokes = strokes.copy()
+        
+        # Crear instancia
+        scorecard = cls(
+            id=row.get('id'),
+            player_id=row.get('player_id'),
+            course_id=row.get('course_id'),
+            date=row.get('date'),
+            strokes=strokes,
+            handicap_strokes=handicap_strokes,
+            points=points,
+            playing_handicap=row.get('playing_handicap'),
+            handicap_coefficient=row.get('handicap_coefficient', 100)
+        )
+        
+        # Añadir información adicional si está disponible
+        if row.get('first_name') and row.get('surname'):
+            scorecard.player_name = f"{row.get('first_name')} {row.get('surname')}"
+        
+        if row.get('name'):
+            scorecard.course_name = row.get('name')
+        
+        # Añadir datos del campo si están disponibles
+        course_data = {}
+        
+        if row.get('location'):
+            course_data['location'] = row.get('location')
             
-            if course_data:
-                scorecard.course_data = course_data
+        if row.get('slope'):
+            course_data['slope'] = row.get('slope')
+            
+        if row.get('course_rating'):
+            course_data['course_rating'] = row.get('course_rating')
+            
+        if row.get('par_total'):
+            course_data['par_total'] = row.get('par_total')
+        
+        # Procesar hole_pars y hole_handicaps
+        if row.get('hole_pars'):
+            try:
+                if isinstance(row.get('hole_pars'), str):
+                    course_data['hole_pars'] = json.loads(row.get('hole_pars'))
+                else:
+                    course_data['hole_pars'] = row.get('hole_pars')
+            except Exception as e:
+                print(f"Error al procesar hole_pars: {str(e)}")
+                course_data['hole_pars'] = []
                 
-            return scorecard
-        except Exception as e:
-            print(f"Error al procesar tarjeta: {str(e)}")
-            return None
+        if row.get('hole_handicaps'):
+            try:
+                if isinstance(row.get('hole_handicaps'), str):
+                    course_data['hole_handicaps'] = json.loads(row.get('hole_handicaps'))
+                else:
+                    course_data['hole_handicaps'] = row.get('hole_handicaps')
+            except Exception as e:
+                print(f"Error al procesar hole_handicaps: {str(e)}")
+                course_data['hole_handicaps'] = []
+        
+        if course_data:
+            scorecard.course_data = course_data
+            
+        return scorecard

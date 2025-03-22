@@ -62,7 +62,7 @@ class MenuViewSimple:
         jugadores_campos = [
             [f"{Fore.YELLOW}{Style.BRIGHT}JUGADORES{Style.RESET_ALL}", f"{Fore.YELLOW}{Style.BRIGHT}CAMPOS{Style.RESET_ALL}"],
             ["-" * 33, "-" * 33],
-            [format_menu_option('1', 'Jugadores'), format_menu_option('3', 'Campos')],
+            [format_menu_option('1', 'Ver jugadores'), format_menu_option('3', 'Ver campos')],
             [format_menu_option('2', 'Añadir jugador'), format_menu_option('4', 'Añadir campo')],
             ["", ""]
         ]
@@ -71,9 +71,9 @@ class MenuViewSimple:
         tarjetas_sistema = [
             [f"{Fore.YELLOW}{Style.BRIGHT}TARJETAS{Style.RESET_ALL}", f"{Fore.YELLOW}{Style.BRIGHT}SISTEMA{Style.RESET_ALL}"],
             ["-" * 33, "-" * 33],
-            [format_menu_option('5', 'Tarjetas'), format_menu_option('q', 'Salir')],
-            [format_menu_option('6', 'Añadir tarjeta'), ""],
-            [format_menu_option('7', 'Filtrar tarjetas'), ""]
+            [format_menu_option('5', 'Menú de tarjetas'), format_menu_option('q', 'Salir')],
+            [format_menu_option('6', 'Añadir tarjeta'), format_menu_option('h', 'Ayuda')],
+            [format_menu_option('7', 'Buscar tarjetas'), ""]
         ]
         
         # Mostrar tablas sin bordes y con alineación perfecta
@@ -89,32 +89,63 @@ class MenuViewSimple:
         Args:
             option (int or str): Opción seleccionada
         """
-        # Opciones de jugadores
-        if option == 1:
-            self.player_view.show_players()
-        elif option == 2:
-            self.player_view.add_player()
+        try:
+            # Opciones de jugadores
+            if option == 1:
+                self.player_view.show_players()
+            elif option == 2:
+                self.player_view.add_player()
+            
+            # Opciones de campos
+            elif option == 3:
+                self.course_view.show_courses()
+            elif option == 4:
+                self.course_view.add_course()
+            
+            # Opciones de tarjetas
+            elif option == 5:
+                self.scorecard_view.show_menu()
+            elif option == 6:
+                self.scorecard_view.create_scorecard()
+            elif option == 7:
+                self.scorecard_view.search_scorecards()
+            
+            # Opciones de sistema
+            elif option == 'q':
+                self.exit_application()
+            elif option == 'h':
+                self.show_help()
+            
+            else:
+                print(format_info("Opción no válida. Por favor, intente nuevamente."))
+        except Exception as e:
+            print(f"{Fore.RED}Error: {str(e)}")
+            input("Presione Enter para continuar...")
+    
+    def show_help(self):
+        """Muestra la ayuda de la aplicación"""
+        clear_screen()
+        print(format_title("AYUDA DEL SISTEMA"))
         
-        # Opciones de campos
-        elif option == 3:
-            self.course_view.show_courses()
-        elif option == 4:
-            self.course_view.add_course()
+        print(f"{Fore.YELLOW}{Style.BRIGHT}Navegación:{Style.RESET_ALL}")
+        print("- Use los números o letras indicados para seleccionar opciones")
+        print("- Presione Enter para aceptar valores predeterminados")
+        print("- En cualquier momento puede presionar Ctrl+C para cancelar la operación actual")
         
-        # Opciones de tarjetas
-        elif option == 5:
-            self.scorecard_view.show_menu()
-        elif option == 6:
-            self.scorecard_view.create_scorecard()
-        elif option == 7:
-            self.scorecard_view.search_scorecards()
+        print(f"\n{Fore.YELLOW}{Style.BRIGHT}Gestión de Jugadores:{Style.RESET_ALL}")
+        print("- Opción 1: Ver y gestionar jugadores existentes")
+        print("- Opción 2: Añadir un nuevo jugador al sistema")
         
-        # Opciones de sistema
-        elif option == 'q' :
-            self.exit_application()
+        print(f"\n{Fore.YELLOW}{Style.BRIGHT}Gestión de Campos:{Style.RESET_ALL}")
+        print("- Opción 3: Ver y gestionar campos de golf existentes")
+        print("- Opción 4: Añadir un nuevo campo de golf al sistema")
         
-        else:
-            print(format_info("Opción no válida. Por favor, intente nuevamente."))
+        print(f"\n{Fore.YELLOW}{Style.BRIGHT}Gestión de Tarjetas:{Style.RESET_ALL}")
+        print("- Opción 5: Acceder al menú completo de tarjetas")
+        print("- Opción 6: Crear una nueva tarjeta de puntuación")
+        print("- Opción 7: Buscar tarjetas con filtros específicos")
+        
+        input("\nPresione Enter para volver al menú principal...")
     
     def exit_application(self):
         """Sale de la aplicación"""
@@ -150,14 +181,19 @@ class MenuViewSimple:
                             self.handle_option('q')
                         else:
                             print(format_info("Opción no válida. Por favor, intente nuevamente."))
-                    elif option == 'q' :
-                        self.handle_option('q')
+                            input("Presione Enter para continuar...")
+                    elif option in ['q', 'h']:
+                        self.handle_option(option)
                     else:
                         print(format_info("Opción no válida. Por favor, intente nuevamente."))
+                        input("Presione Enter para continuar...")
                         
                 except KeyboardInterrupt:
                     print(f"\n{Fore.YELLOW}Operación cancelada. Volviendo al menú principal...{Style.RESET_ALL}")
                     continue
+                except Exception as e:
+                    print(f"\n{Fore.RED}Error inesperado: {str(e)}")
+                    input("Presione Enter para continuar...")
         except KeyboardInterrupt:
             # Salida controlada si se presiona Ctrl+C
             print(f"\n{Fore.YELLOW}Saliendo de la aplicación...{Style.RESET_ALL}")

@@ -129,14 +129,12 @@ class ScorecardController:
             
             # Convertir listas a JSON
             strokes_json = json.dumps(strokes)
-            handicap_strokes_json = json.dumps(handicap_strokes)
             points_json = json.dumps(points)
             
             # Añadir a la base de datos
             scorecard_id = self.db.add_scorecard(
                 player_id, course_id, date, strokes_json, 
-                points_json, handicap_coefficient, playing_handicap,
-                handicap_strokes_json
+                points_json, handicap_coefficient, playing_handicap
             )
             
             if scorecard_id:
@@ -246,19 +244,16 @@ class ScorecardController:
         except Exception:
             return False
             
-    def update_scorecard(self, scorecard_id, player_id=None, course_id=None, date=None, 
-                         strokes=None, playing_handicap=None, handicap_coefficient=None):
+    def update_scorecard(self, scorecard_id, strokes=None, date=None, playing_handicap=None, handicap_coefficient=None):
         """
         Actualiza una tarjeta existente.
         
         Args:
             scorecard_id (int): ID de la tarjeta a actualizar
-            player_id (int, optional): ID del jugador
-            course_id (int, optional): ID del campo
-            date (str, optional): Fecha de la ronda
-            strokes (list, optional): Lista de golpes por hoyo
-            playing_handicap (float, optional): Hándicap de juego
-            handicap_coefficient (int, optional): Coeficiente de hándicap (%)
+            strokes (list, optional): Nueva lista de golpes
+            date (str, optional): Nueva fecha
+            playing_handicap (float, optional): Nuevo hándicap de juego
+            handicap_coefficient (int, optional): Nuevo coeficiente de hándicap
             
         Returns:
             tuple: (éxito, resultado/mensaje)
@@ -269,93 +264,88 @@ class ScorecardController:
             if not current_scorecard:
                 return False, f"No se encontró ninguna tarjeta con ID {scorecard_id}."
             
-            # Usar valores actuales si no se proporcionan nuevos
-            player_id = player_id or current_scorecard.player_id
-            course_id = course_id or current_scorecard.course_id
-            date = date or current_scorecard.date
-            strokes = strokes if strokes is not None else current_scorecard.strokes
-            playing_handicap = playing_handicap if playing_handicap is not None else current_scorecard.playing_handicap
-            handicap_coefficient = handicap_coefficient if handicap_coefficient is not None else current_scorecard.handicap_coefficient
+            # Actualizar solo los campos proporcionados
+            if strokes is not None:
+                current_scorecard.strokes = strokes
             
-            # Validaciones
-            if not player_id or not course_id:
-                return False, "El jugador y el campo son obligatorios."
+            if date is not None:
+                # Validar formato de fecha
+                try:
+                    datetime.strptime(date, "%Y-%m-%d")
+                    current_scorecard.date = date
+                except ValueError:
+                    return False, "Formato de fecha inválido. Use YYYY-MM-DD."
             
-            # Verificar que el jugador existe
-            player = self.db.get_player(player_id)
-            if not player:
-                return False, f"No se encontró ningún jugador con ID {player_id}."
+            if playing_handicap is not None:
+                current_scorecard.playing_handicap = playing_handicap
             
-            # Verificar que el campo existe
-            course = self.db.get_course(course_id)
-            if not course:
-                return False, f"No se encontró ningún campo con ID {course_id}."
+            if handicap_coefficient is not None:
+                current_scorecard.handicap_coefficient = handicap_coefficient
             
-            # Validar fecha
-            try:
-                datetime.strptime(date, "%Y-%m-%d")
-            except ValueError:
-                return False, "Formato de fecha inválido. Use YYYY-MM-DD."
-            
-            # Validar golpes
-            if not all(isinstance(s, int) and s > 0 for s in strokes):
-                return False, "Los golpes deben ser números enteros positivos."
-            
-            # Calcular puntos y golpes con hándicap
-            points = []
-            handicap_strokes = []
-            
-            # Obtener los pares de cada hoyo y los hándicaps de cada hoyo
-            hole_pars = json.loads(course['hole_pars']) if isinstance(course['hole_pars'], str) else course['hole_pars']
-            hole_handicaps = json.loads(course['hole_handicaps']) if isinstance(course['hole_handicaps'], str) else course['hole_handicaps']
-            
-            # Calcular los golpes con hándicap y los puntos para cada hoyo
-            for i, stroke in enumerate(strokes):
-                if i < len(hole_pars) and i < len(hole_handicaps):
-                    par = hole_pars[i]
-                    hole_handicap = hole_handicaps[i]
-                    
-                    # Calcular golpes extra por hándicap para este hoyo
-                    extra_strokes = 0
-                    if playing_handicap is not None:
-                        # Distribuir el hándicap según la dificultad de los hoyos
-                        if playing_handicap >= hole_handicap:
-                            extra_strokes += 1
-                        # Para hándicaps altos, se pueden asignar más de un golpe extra por hoyo
-                        if playing_handicap >= hole_handicap + 18:
-                            extra_strokes += 1
-                        # Para hándicaps muy altos
-                        if playing_handicap >= hole_handicap + 36:
-                            extra_strokes += 1
-                    
-                    # Calcular golpes netos (con hándicap)
-                    net_stroke = max(1, stroke - extra_strokes)
-                    handicap_strokes.append(net_stroke)
-                    
-                    # Calcular puntos stableford
-                    if net_stroke > par + 1:
-                        points.append(0)
-                    elif net_stroke == par + 1:
-                        points.append(1)
-                    elif net_stroke == par:
-                        points.append(2)
-                    elif net_stroke == par - 1:
-                        points.append(3)
-                    elif net_stroke == par - 2:
-                        points.append(4)
-                    elif net_stroke <= par - 3:
-                        points.append(5)
+            # Recalcular puntos si los golpes han cambiado
+            if strokes is not None or playing_handicap is not None:
+                # Obtener datos del campo
+                course = self.db.get_course(current_scorecard.course_id)
+                if not course:
+                    return False, "No se pudo obtener información del campo."
+                
+                # Obtener los pares de cada hoyo y los hándicaps de cada hoyo
+                hole_pars = json.loads(course['hole_pars']) if isinstance(course['hole_pars'], str) else course['hole_pars']
+                hole_handicaps = json.loads(course['hole_handicaps']) if isinstance(course['hole_handicaps'], str) else course['hole_handicaps']
+                
+                # Recalcular puntos
+                points = []
+                for i, stroke in enumerate(current_scorecard.strokes):
+                    if i < len(hole_pars) and i < len(hole_handicaps):
+                        par = hole_pars[i]
+                        hole_handicap = hole_handicaps[i]
+                        
+                        # Calcular golpes extra por hándicap para este hoyo
+                        extra_strokes = 0
+                        if current_scorecard.playing_handicap is not None:
+                            # Distribuir el hándicap según la dificultad de los hoyos
+                            if current_scorecard.playing_handicap >= hole_handicap:
+                                extra_strokes += 1
+                            # Para hándicaps altos, se pueden asignar más de un golpe extra por hoyo
+                            if current_scorecard.playing_handicap >= hole_handicap + 18:
+                                extra_strokes += 1
+                            # Para hándicaps muy altos
+                            if current_scorecard.playing_handicap >= hole_handicap + 36:
+                                extra_strokes += 1
+                        
+                        # Calcular golpes netos (con hándicap)
+                        net_stroke = max(1, stroke - extra_strokes)
+                        
+                        # Calcular puntos stableford
+                        if net_stroke > par + 1:
+                            points.append(0)
+                        elif net_stroke == par + 1:
+                            points.append(1)
+                        elif net_stroke == par:
+                            points.append(2)
+                        elif net_stroke == par - 1:
+                            points.append(3)
+                        elif net_stroke == par - 2:
+                            points.append(4)
+                        elif net_stroke <= par - 3:
+                            points.append(5)
+                
+                current_scorecard.points = points
             
             # Convertir listas a JSON
-            strokes_json = json.dumps(strokes)
-            handicap_strokes_json = json.dumps(handicap_strokes)
-            points_json = json.dumps(points)
+            strokes_json = json.dumps(current_scorecard.strokes)
+            points_json = json.dumps(current_scorecard.points)
             
             # Actualizar en la base de datos
             success = self.db.update_scorecard(
-                scorecard_id, player_id, course_id, date, 
-                strokes_json, handicap_strokes_json, points_json,
-                handicap_coefficient, playing_handicap
+                scorecard_id, 
+                current_scorecard.player_id, 
+                current_scorecard.course_id, 
+                current_scorecard.date, 
+                strokes_json, 
+                points_json, 
+                current_scorecard.handicap_coefficient, 
+                current_scorecard.playing_handicap
             )
             
             if success:
@@ -364,7 +354,7 @@ class ScorecardController:
                 return False, "Error al actualizar la tarjeta en la base de datos."
                 
         except Exception as e:
-            return False, f"Error: {str(e)}"
+            return False, f"Error al actualizar tarjeta: {str(e)}"
     
     def calculate_scorecard_stats(self, scorecard):
         """

@@ -15,185 +15,144 @@ class ScorecardUtils:
         Prepara los datos de una tarjeta para su visualización.
         
         Args:
-            scorecard (Scorecard): Tarjeta de puntuación
-            player_controller (PlayerController, optional): Controlador de jugadores
-            course_controller (CourseController, optional): Controlador de campos
-            player (Player, optional): Jugador (si ya se ha obtenido)
-            course (Course, optional): Campo (si ya se ha obtenido)
+            scorecard: Tarjeta a preparar
+            player_controller: Controlador de jugadores
+            course_controller: Controlador de campos
+            player: Objeto jugador (opcional, si ya se ha obtenido)
+            course: Objeto campo (opcional, si ya se ha obtenido)
             
         Returns:
             dict: Diccionario con los datos preparados
         """
-        # Inicializar datos
         data = {
-            'id': scorecard.id,
-            'date': scorecard.date,
-            'player_id': scorecard.player_id,
-            'course_id': scorecard.course_id,
-            'player_name': scorecard.player_name,
-            'course_name': scorecard.course_name,
-            'strokes': scorecard.strokes,
-            'handicap_strokes': scorecard.handicap_strokes,
-            'points': scorecard.points,
-            'playing_handicap': scorecard.playing_handicap,
-            'handicap_coefficient': scorecard.handicap_coefficient,
             'total_strokes': scorecard.total_strokes(),
-            'total_handicap_strokes': scorecard.total_handicap_strokes(),
-            'total_points': scorecard.total_points(),
-            'holes_data': []
+            'total_points': scorecard.total_points() if hasattr(scorecard, 'total_points') else 0,
         }
         
-        # Obtener jugador si no se proporciona
+        # Obtener jugador y campo si no se proporcionaron
         if not player and player_controller and scorecard.player_id:
             player = player_controller.get_player(scorecard.player_id)
-            if player:
-                data['player_name'] = f"{player.first_name} {player.surname}"
-                data['player_handicap'] = player.handicap
         
-        # Obtener campo si no se proporciona
         if not course and course_controller and scorecard.course_id:
             course = course_controller.get_course(scorecard.course_id)
-            if course:
-                data['course_name'] = course.name
-                data['course_location'] = course.location
-                data['course_slope'] = course.slope
-                data['course_rating'] = course.course_rating
-                data['course_par_total'] = course.par_total
-                data['course_hole_pars'] = course.hole_pars
-                data['course_hole_handicaps'] = course.hole_handicaps
         
-        # Añadir datos del campo desde el objeto course si está disponible
+        # Añadir información del jugador
+        if player:
+            data['player'] = player
+            data['player_name'] = f"{player.first_name} {player.surname}"
+            data['player_handicap'] = player.handicap
+        else:
+            data['player_name'] = f"Jugador #{scorecard.player_id}"
+            data['player_handicap'] = "N/A"
+        
+        # Añadir información del campo
         if course:
+            data['course'] = course
             data['course_name'] = course.name
-            data['course_location'] = course.location
-            data['course_slope'] = course.slope
-            data['course_rating'] = course.course_rating
-            data['course_par_total'] = course.par_total
-            data['course_hole_pars'] = course.hole_pars
-            data['course_hole_handicaps'] = course.hole_handicaps
+            data['course_par'] = course.par_total
             
             # Calcular diferencia con el par
-            if data.get('total_strokes') is not None and course.par_total:
-                data['vs_par'] = data['total_strokes'] - course.par_total
-                data['vs_par_text'] = ScorecardUtils.format_vs_par(data['vs_par'])
+            data['vs_par'] = data['total_strokes'] - course.par_total
+            if data['vs_par'] > 0:
+                data['vs_par_text'] = f"+{data['vs_par']}"
+            elif data['vs_par'] == 0:
+                data['vs_par_text'] = "E (Par)"
+            else:
+                data['vs_par_text'] = f"{data['vs_par']}"
             
-            # Calcular diferencia con el par neto
-            if data.get('total_handicap_strokes') is not None and course.par_total:
+            # Calcular golpes netos totales
+            if hasattr(scorecard, 'total_handicap_strokes'):
+                data['total_handicap_strokes'] = scorecard.total_handicap_strokes()
                 data['vs_handicap_par'] = data['total_handicap_strokes'] - course.par_total
-                data['vs_handicap_par_text'] = ScorecardUtils.format_vs_par(data['vs_handicap_par'])
-        
-        # Preparar datos por hoyo
-        hole_results = scorecard.get_all_holes_results()
-        data['holes_data'] = hole_results
+                if data['vs_handicap_par'] > 0:
+                    data['vs_handicap_par_text'] = f"+{data['vs_handicap_par']}"
+                elif data['vs_handicap_par'] == 0:
+                    data['vs_handicap_par_text'] = "E (Par)"
+                else:
+                    data['vs_handicap_par_text'] = f"{data['vs_handicap_par']}"
+            else:
+                data['total_handicap_strokes'] = "N/A"
+        else:
+            data['course_name'] = f"Campo #{scorecard.course_id}"
+            data['course_par'] = "N/A"
         
         return data
     
     @staticmethod
-    def format_vs_par(value):
+    def format_stroke_result(strokes, par):
         """
-        Formatea un valor de diferencia con el par.
+        Formatea el resultado de golpes con colores según el par.
         
         Args:
-            value (int): Valor de diferencia con el par
+            strokes: Número de golpes
+            par: Par del hoyo
             
         Returns:
-            str: Texto formateado
+            str: Texto formateado con colores
         """
-        if value == 0:
-            return "E"
-        elif value > 0:
-            return f"+{value}"
-        else:
-            return str(value)
-    
-    @staticmethod
-    def format_stroke_result(stroke, par):
-        """
-        Formatea un resultado de golpes para mostrar con color.
-        
-        Args:
-            stroke (int): Golpes
-            par (int): Par del hoyo
-            
-        Returns:
-            str: Texto formateado con color
-        """
-        if stroke is None or par is None:
+        if strokes is None:
             return "-"
         
-        diff = stroke - par
-        result = str(stroke)
+        if par is None:
+            return str(strokes)
         
-        if diff <= -2:
-            # Eagle o mejor
-            return f"{Fore.MAGENTA}{result}{Style.RESET_ALL}"
-        elif diff == -1:
-            # Birdie
-            return f"{Fore.RED}{result}{Style.RESET_ALL}"
-        elif diff == 0:
-            # Par
-            return f"{Fore.GREEN}{result}{Style.RESET_ALL}"
-        elif diff == 1:
-            # Bogey
-            return f"{Fore.YELLOW}{result}{Style.RESET_ALL}"
-        elif diff == 2:
-            # Doble bogey
-            return f"{Fore.BLUE}{result}{Style.RESET_ALL}"
-        else:
-            # Triple bogey o peor
-            return f"{Fore.WHITE}{result}{Style.RESET_ALL}"
+        # Formatear con colores según el resultado
+        if strokes < par - 1:  # Eagle o mejor
+            return f"{Fore.MAGENTA}{Style.BRIGHT}{strokes}{Style.RESET_ALL}"
+        elif strokes == par - 1:  # Birdie
+            return f"{Fore.RED}{Style.BRIGHT}{strokes}{Style.RESET_ALL}"
+        elif strokes == par:  # Par
+            return f"{Fore.GREEN}{strokes}{Style.RESET_ALL}"
+        elif strokes == par + 1:  # Bogey
+            return f"{Fore.BLUE}{strokes}{Style.RESET_ALL}"
+        elif strokes == par + 2:  # Doble Bogey
+            return f"{Fore.YELLOW}{strokes}{Style.RESET_ALL}"
+        else:  # Triple Bogey o peor
+            return f"{Fore.RED}{strokes}{Style.RESET_ALL}"
     
     @staticmethod
     def format_points(points):
         """
-        Formatea los puntos stableford para mostrar con color.
+        Formatea los puntos con colores.
         
         Args:
-            points (int): Puntos
+            points: Puntos obtenidos
             
         Returns:
-            str: Texto formateado con color
+            str: Texto formateado con colores
         """
         if points is None:
             return "-"
         
-        result = str(points)
-        
-        if points >= 4:
-            # Eagle o mejor
-            return f"{Fore.MAGENTA}{result}{Style.RESET_ALL}"
-        elif points == 3:
-            # Birdie
-            return f"{Fore.RED}{result}{Style.RESET_ALL}"
-        elif points == 2:
-            # Par
-            return f"{Fore.GREEN}{result}{Style.RESET_ALL}"
-        elif points == 1:
-            # Bogey
-            return f"{Fore.YELLOW}{result}{Style.RESET_ALL}"
-        else:
-            # No puntos
-            return f"{Fore.WHITE}{result}{Style.RESET_ALL}"
+        # Formatear con colores según los puntos
+        if points >= 3:  # 3 o más puntos
+            return f"{Fore.GREEN}{Style.BRIGHT}{points}{Style.RESET_ALL}"
+        elif points == 2:  # 2 puntos
+            return f"{Fore.BLUE}{points}{Style.RESET_ALL}"
+        elif points == 1:  # 1 punto
+            return f"{Fore.YELLOW}{points}{Style.RESET_ALL}"
+        else:  # 0 puntos
+            return f"{Fore.RED}{points}{Style.RESET_ALL}"
     
     @staticmethod
-    def get_score_name(stroke, par):
+    def get_score_name(strokes, par):
         """
-        Obtiene el nombre del resultado según la diferencia con el par.
+        Obtiene el nombre del resultado según los golpes y el par.
         
         Args:
-            stroke (int): Golpes
-            par (int): Par del hoyo
+            strokes: Número de golpes
+            par: Par del hoyo
             
         Returns:
             str: Nombre del resultado
         """
-        if stroke is None or par is None:
+        if strokes is None or par is None:
             return "-"
         
-        diff = stroke - par
+        diff = strokes - par
         
         if diff <= -3:
-            return "Albatross o mejor"
+            return "Albatros o mejor"
         elif diff == -2:
             return "Eagle"
         elif diff == -1:
@@ -204,8 +163,10 @@ class ScorecardUtils:
             return "Bogey"
         elif diff == 2:
             return "Doble Bogey"
+        elif diff == 3:
+            return "Triple Bogey"
         else:
-            return "Triple Bogey o peor"
+            return f"{diff} sobre par"
     
     @staticmethod
     def calculate_stats(scorecard, course=None):
@@ -213,16 +174,16 @@ class ScorecardUtils:
         Calcula estadísticas para una tarjeta.
         
         Args:
-            scorecard (Scorecard): Tarjeta de puntuación
-            course (Course, optional): Campo
+            scorecard: Tarjeta de puntuación
+            course: Campo
             
         Returns:
             dict: Diccionario con estadísticas
         """
         stats = {
             'total_strokes': scorecard.total_strokes(),
-            'total_handicap_strokes': scorecard.total_handicap_strokes(),
-            'total_points': scorecard.total_points(),
+            'total_handicap_strokes': scorecard.total_handicap_strokes() if hasattr(scorecard, 'total_handicap_strokes') else 0,
+            'total_points': scorecard.total_points() if hasattr(scorecard, 'total_points') else 0,
             'holes_played': len(scorecard.strokes),
             'pars': 0,
             'birdies': 0,

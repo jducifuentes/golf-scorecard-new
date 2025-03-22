@@ -64,7 +64,6 @@ class Database:
                     course_id INTEGER NOT NULL,
                     date TEXT NOT NULL,
                     strokes TEXT NOT NULL,
-                    handicap_strokes TEXT NOT NULL,
                     points TEXT NOT NULL,
                     handicap_coefficient INTEGER NOT NULL,
                     playing_handicap REAL,
@@ -230,7 +229,7 @@ class Database:
 
     # ===== Operaciones con Tarjetas =====
     
-    def add_scorecard(self, player_id, course_id, date, strokes, points, handicap_coefficient, playing_handicap=None, handicap_strokes=None):
+    def add_scorecard(self, player_id, course_id, date, strokes, points, handicap_coefficient, playing_handicap=None):
         """
         Añade una nueva tarjeta a la base de datos.
         
@@ -242,7 +241,6 @@ class Database:
             points (str): Puntos por hoyo en formato JSON
             handicap_coefficient (float): Coeficiente de hándicap aplicado
             playing_handicap (float, optional): Hándicap de juego final
-            handicap_strokes (str, optional): Golpes de hándicap por hoyo en formato JSON
             
         Returns:
             int: ID de la tarjeta creada o None si falla
@@ -255,16 +253,16 @@ class Database:
             # Preparar la consulta SQL
             query = """
                 INSERT INTO scorecards (
-                    player_id, course_id, date, strokes, handicap_strokes, points, 
+                    player_id, course_id, date, strokes, points, 
                     handicap_coefficient, playing_handicap
-                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+                ) VALUES (?, ?, ?, ?, ?, ?, ?)
             """
             
             # Ejecutar la consulta
             cursor = self.connection.cursor()
             cursor.execute(
                 query, 
-                (player_id, course_id, date, strokes, handicap_strokes, points, 
+                (player_id, course_id, date, strokes, points, 
                  handicap_coefficient, playing_handicap)
             )
             
@@ -300,12 +298,12 @@ class Database:
                 LEFT JOIN courses c ON s.course_id = c.id
                 WHERE s.id = ?
             ''', (scorecard_id,)).fetchone()
-            return result
+            return dict(result) if result else None
 
     def get_scorecards(self, limit=50, offset=0):
         """Obtiene todas las tarjetas con información de jugador y campo"""
         with self.connection:
-            return self.connection.execute('''
+            rows = self.connection.execute('''
                 SELECT s.*, p.first_name, p.surname, c.name, c.location, c.slope, c.course_rating, c.par_total, 
                        c.hole_pars, c.hole_handicaps
                 FROM scorecards s
@@ -314,6 +312,7 @@ class Database:
                 ORDER BY s.date DESC
                 LIMIT ? OFFSET ?
             ''', (limit, offset)).fetchall()
+            return [dict(row) for row in rows] if rows else []
 
     def delete_scorecard(self, scorecard_id):
         """Elimina una tarjeta por su ID"""
@@ -321,7 +320,7 @@ class Database:
             self.connection.execute('DELETE FROM scorecards WHERE id = ?', (scorecard_id,))
             return True
 
-    def update_scorecard(self, scorecard_id, player_id, course_id, date, strokes, handicap_strokes, points,
+    def update_scorecard(self, scorecard_id, player_id, course_id, date, strokes, points,
                         handicap_coefficient, playing_handicap):
         """
         Actualiza una tarjeta existente.
@@ -332,7 +331,6 @@ class Database:
             course_id (int): ID del campo
             date (str): Fecha de la ronda
             strokes (str): Golpes por hoyo en formato JSON
-            handicap_strokes (str): Golpes de hándicap por hoyo en formato JSON
             points (str): Puntos por hoyo en formato JSON
             handicap_coefficient (float): Coeficiente de hándicap aplicado
             playing_handicap (float): Hándicap de juego final
@@ -344,7 +342,7 @@ class Database:
             # Preparar la consulta SQL
             query = """
                 UPDATE scorecards
-                SET player_id = ?, course_id = ?, date = ?, strokes = ?, handicap_strokes = ?, points = ?,
+                SET player_id = ?, course_id = ?, date = ?, strokes = ?, points = ?,
                     handicap_coefficient = ?, playing_handicap = ?
                 WHERE id = ?
             """
@@ -353,7 +351,7 @@ class Database:
             cursor = self.connection.cursor()
             cursor.execute(
                 query, 
-                (player_id, course_id, date, strokes, handicap_strokes, points,
+                (player_id, course_id, date, strokes, points,
                  handicap_coefficient, playing_handicap, scorecard_id)
             )
             
@@ -384,6 +382,7 @@ class Database:
         """
         filters = filters or {}
         
+        # Construir la consulta base
         query = """
             SELECT s.*, p.first_name, p.surname, c.name, c.location, c.slope, c.course_rating, c.par_total, 
                    c.hole_pars, c.hole_handicaps
@@ -392,37 +391,43 @@ class Database:
             LEFT JOIN courses c ON s.course_id = c.id
             WHERE 1=1
         """
+        
+        # Inicializar lista de parámetros
         params = []
         
+        # Aplicar filtros
         if 'player_id' in filters and filters['player_id']:
             query += " AND s.player_id = ?"
             params.append(filters['player_id'])
-        
+            
         if 'course_id' in filters and filters['course_id']:
             query += " AND s.course_id = ?"
             params.append(filters['course_id'])
-        
+            
         if 'start_date' in filters and filters['start_date']:
             query += " AND s.date >= ?"
             params.append(filters['start_date'])
-        
+            
         if 'end_date' in filters and filters['end_date']:
             query += " AND s.date <= ?"
             params.append(filters['end_date'])
-        
+            
         if 'player_name' in filters and filters['player_name']:
             query += " AND (p.first_name LIKE ? OR p.surname LIKE ?)"
-            name_pattern = f"%{filters['player_name']}%"
-            params.extend([name_pattern, name_pattern])
-        
+            search_term = f"%{filters['player_name']}%"
+            params.append(search_term)
+            params.append(search_term)
+            
         if 'course_name' in filters and filters['course_name']:
             query += " AND c.name LIKE ?"
             params.append(f"%{filters['course_name']}%")
-        
+            
+        # Ordenar por fecha descendente
         query += " ORDER BY s.date DESC"
         
         with self.connection:
-            return self.connection.execute(query, params).fetchall()
+            rows = self.connection.execute(query, params).fetchall()
+            return [dict(row) for row in rows] if rows else []
 
     def get_stats(self, player_id=None, course_id=None, start_date=None, end_date=None):
         """
