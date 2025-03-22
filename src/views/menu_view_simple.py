@@ -73,7 +73,7 @@ class MenuViewSimple:
             ["-" * 33, "-" * 33],
             [format_menu_option('5', 'Menú de tarjetas'), format_menu_option('q', 'Salir')],
             [format_menu_option('6', 'Añadir tarjeta'), format_menu_option('h', 'Ayuda')],
-            [format_menu_option('7', 'Buscar tarjetas'), ""]
+            ["", ""]
         ]
         
         # Mostrar tablas sin bordes y con alineación perfecta
@@ -107,8 +107,6 @@ class MenuViewSimple:
                 self.scorecard_view.show_menu()
             elif option == 6:
                 self.scorecard_view.create_scorecard()
-            elif option == 7:
-                self.scorecard_view.search_scorecards()
             
             # Opciones de sistema
             elif option == 'q':
@@ -143,7 +141,6 @@ class MenuViewSimple:
         print(f"\n{Fore.YELLOW}{Style.BRIGHT}Gestión de Tarjetas:{Style.RESET_ALL}")
         print("- Opción 5: Acceder al menú completo de tarjetas")
         print("- Opción 6: Crear una nueva tarjeta de puntuación")
-        print("- Opción 7: Buscar tarjetas con filtros específicos")
         
         input("\nPresione Enter para volver al menú principal...")
     
@@ -175,7 +172,7 @@ class MenuViewSimple:
                     # Convertir a número si es posible
                     if option.isdigit():
                         option = int(option)
-                        if 1 <= option <= 7:
+                        if 1 <= option <= 6:
                             self.handle_option(option)
                         elif option == 0:
                             self.handle_option('q')

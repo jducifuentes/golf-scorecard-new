@@ -3,7 +3,9 @@ Vista para la visualización y gestión de listas de tarjetas.
 """
 from colorama import Fore, Style
 from src.views.base_view import BaseView
-from src.views.utils import format_title, format_info, format_table, clear_screen, pause
+from src.views.utils import format_title, format_info, format_table, clear_screen, pause, format_error
+from src.utils.formatters import format_menu_option
+from src.utils.helpers_simple import get_number_input
 from src.views.scorecard.scorecard_utils import ScorecardUtils
 
 
@@ -121,10 +123,10 @@ class ScorecardListView(BaseView):
                 if 0 <= index < len(scorecards):
                     return scorecards[index]
                 else:
-                    print(f"{Fore.RED}Opción inválida. Debe ser un número entre 1 y {len(scorecards)}.{Style.RESET_ALL}")
+                    print(format_error("Opción inválida. Debe ser un número entre 1 y {}".format(len(scorecards))))
                     pause()
             except ValueError:
-                print(f"{Fore.RED}Opción inválida. Debe ingresar un número.{Style.RESET_ALL}")
+                print(format_error("Opción inválida. Debe ingresar un número."))
                 pause()
     
     def show_all_scorecards(self):
@@ -159,25 +161,27 @@ class ScorecardListView(BaseView):
         courses = self.course_controller.get_courses()
         
         if not players:
-            print(f"{Fore.YELLOW}No hay jugadores registrados. Debe crear al menos un jugador antes de buscar tarjetas.{Style.RESET_ALL}")
+            print(format_info("No hay jugadores registrados. Debe crear al menos un jugador antes de buscar tarjetas."))
             pause()
             return None
         
         if not courses:
-            print(f"{Fore.YELLOW}No hay campos registrados. Debe crear al menos un campo antes de buscar tarjetas.{Style.RESET_ALL}")
+            print(format_info("No hay campos registrados. Debe crear al menos un campo antes de buscar tarjetas."))
             pause()
             return None
         
         # Mostrar opciones de búsqueda
-        print("\nOpciones de búsqueda:")
-        print("  1. Por jugador")
-        print("  2. Por campo")
-        print("  3. Por fecha")
-        print("  4. Volver")
+        print(f"\n{Fore.YELLOW}Opciones de búsqueda:{Style.RESET_ALL}")
+        print(format_menu_option("1", "Por jugador"))
+        print(format_menu_option("2", "Por campo"))
+        print(format_menu_option("3", "Por fecha"))
+        print(format_menu_option("0", "Volver"))
         
-        option = input("\nSeleccione una opción: ")
+        option = get_number_input("Seleccione una opción", default=0, min_value=0, max_value=3, allow_float=False)
         
-        if option == "1":
+        if option == 0:
+            return None
+        elif option == 1:
             # Buscar por jugador
             clear_screen()
             print(format_title("BUSCAR POR JUGADOR"))
@@ -187,33 +191,33 @@ class ScorecardListView(BaseView):
             for i, player in enumerate(players):
                 print(f"  {i+1}. {player.first_name} {player.surname}")
             
-            player_option = input("\nSeleccione un jugador (0 para cancelar): ")
+            player_option = get_number_input("\nSeleccione un jugador (0 para cancelar)", default=0, min_value=0, max_value=len(players), allow_float=False)
             
-            if player_option == "0":
+            if player_option == 0:
                 return self.search_scorecards()
             
             try:
-                player_index = int(player_option) - 1
+                player_index = player_option - 1
                 if 0 <= player_index < len(players):
                     player_id = players[player_index].id
                     scorecards = self.scorecard_controller.search_scorecards({'player_id': player_id})
                     
                     if not scorecards:
-                        print(f"{Fore.YELLOW}No se encontraron tarjetas para este jugador.{Style.RESET_ALL}")
+                        print(format_info("No se encontraron tarjetas para este jugador."))
                         pause()
                         return self.search_scorecards()
                     
                     return self.display_scorecards_list(scorecards)
                 else:
-                    print(f"{Fore.RED}Opción inválida.{Style.RESET_ALL}")
+                    print(format_error("Opción inválida."))
                     pause()
                     return self.search_scorecards()
             except ValueError:
-                print(f"{Fore.RED}Opción inválida. Debe ingresar un número.{Style.RESET_ALL}")
+                print(format_error("Opción inválida. Debe ingresar un número."))
                 pause()
                 return self.search_scorecards()
         
-        elif option == "2":
+        elif option == 2:
             # Buscar por campo
             clear_screen()
             print(format_title("BUSCAR POR CAMPO"))
@@ -223,33 +227,33 @@ class ScorecardListView(BaseView):
             for i, course in enumerate(courses):
                 print(f"  {i+1}. {course.name} ({course.location})")
             
-            course_option = input("\nSeleccione un campo (0 para cancelar): ")
+            course_option = get_number_input("\nSeleccione un campo (0 para cancelar)", default=0, min_value=0, max_value=len(courses), allow_float=False)
             
-            if course_option == "0":
+            if course_option == 0:
                 return self.search_scorecards()
             
             try:
-                course_index = int(course_option) - 1
+                course_index = course_option - 1
                 if 0 <= course_index < len(courses):
                     course_id = courses[course_index].id
                     scorecards = self.scorecard_controller.search_scorecards({'course_id': course_id})
                     
                     if not scorecards:
-                        print(f"{Fore.YELLOW}No se encontraron tarjetas para este campo.{Style.RESET_ALL}")
+                        print(format_info("No se encontraron tarjetas para este campo."))
                         pause()
                         return self.search_scorecards()
                     
                     return self.display_scorecards_list(scorecards)
                 else:
-                    print(f"{Fore.RED}Opción inválida.{Style.RESET_ALL}")
+                    print(format_error("Opción inválida."))
                     pause()
                     return self.search_scorecards()
             except ValueError:
-                print(f"{Fore.RED}Opción inválida. Debe ingresar un número.{Style.RESET_ALL}")
+                print(format_error("Opción inválida. Debe ingresar un número."))
                 pause()
                 return self.search_scorecards()
         
-        elif option == "3":
+        elif option == 3:
             # Buscar por fecha
             clear_screen()
             print(format_title("BUSCAR POR FECHA"))
@@ -262,16 +266,13 @@ class ScorecardListView(BaseView):
             scorecards = self.scorecard_controller.search_scorecards({'date': date})
             
             if not scorecards:
-                print(f"{Fore.YELLOW}No se encontraron tarjetas para esta fecha.{Style.RESET_ALL}")
+                print(format_info("No se encontraron tarjetas para esta fecha."))
                 pause()
                 return self.search_scorecards()
             
             return self.display_scorecards_list(scorecards)
         
-        elif option == "4":
-            return None
-        
         else:
-            print(f"{Fore.RED}Opción inválida.{Style.RESET_ALL}")
+            print(format_error("Opción inválida."))
             pause()
             return self.search_scorecards()
