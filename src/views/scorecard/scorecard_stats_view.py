@@ -59,14 +59,20 @@ class ScorecardStatsView(BaseView):
         print(format_title(f"ESTADÍSTICAS DE TARJETA #{scorecard_id}"))
         
         print(f"\n{Fore.CYAN}Información general:{Style.RESET_ALL}")
-        print(f"  Jugador: {player.name}")
+        print(f"  Jugador: {player.full_name}")
         print(f"  Campo: {course.name}")
         print(f"  Fecha: {scorecard.date}")
         print(f"  Handicap de juego: {scorecard.playing_handicap}")
         
         # Calcular estadísticas básicas
-        total_strokes = sum(scorecard.strokes)
-        total_par = sum(course.pars)
+        total_strokes = sum(scorecard.strokes) if scorecard.strokes else 0
+        
+        # Asegurarse de que course.hole_pars existe y es una lista
+        if hasattr(course, 'hole_pars') and isinstance(course.hole_pars, list) and course.hole_pars:
+            total_par = sum(course.hole_pars)
+        else:
+            total_par = course.par_total if hasattr(course, 'par_total') else 72
+            
         vs_par = total_strokes - total_par
         vs_par_str = f"+{vs_par}" if vs_par > 0 else str(vs_par)
         
@@ -76,10 +82,10 @@ class ScorecardStatsView(BaseView):
         print(f"  Resultado vs Par: {vs_par_str}")
         
         if scorecard.handicap_strokes:
-            total_net_strokes = total_strokes - sum(scorecard.handicap_strokes)
-            vs_par_net = total_net_strokes - total_par
+            total_handicap_strokes = sum(scorecard.handicap_strokes)
+            vs_par_net = total_handicap_strokes - total_par
             vs_par_net_str = f"+{vs_par_net}" if vs_par_net > 0 else str(vs_par_net)
-            print(f"  Total golpes netos: {total_net_strokes}")
+            print(f"  Total golpes netos: {total_handicap_strokes}")
             print(f"  Resultado neto vs Par: {vs_par_net_str}")
         
         if scorecard.points:
@@ -87,41 +93,42 @@ class ScorecardStatsView(BaseView):
             print(f"  Total puntos Stableford: {total_points}")
         
         # Analizar rendimiento por tipo de hoyo
-        par3_indices = [i for i, par in enumerate(course.pars) if par == 3]
-        par4_indices = [i for i, par in enumerate(course.pars) if par == 4]
-        par5_indices = [i for i, par in enumerate(course.pars) if par == 5]
-        
-        par3_strokes = sum(scorecard.strokes[i] for i in par3_indices) if par3_indices else 0
-        par4_strokes = sum(scorecard.strokes[i] for i in par4_indices) if par4_indices else 0
-        par5_strokes = sum(scorecard.strokes[i] for i in par5_indices) if par5_indices else 0
-        
-        par3_total = sum(course.pars[i] for i in par3_indices) if par3_indices else 0
-        par4_total = sum(course.pars[i] for i in par4_indices) if par4_indices else 0
-        par5_total = sum(course.pars[i] for i in par5_indices) if par5_indices else 0
-        
-        par3_diff = par3_strokes - par3_total if par3_indices else 0
-        par4_diff = par4_strokes - par4_total if par4_indices else 0
-        par5_diff = par5_strokes - par5_total if par5_indices else 0
-        
-        par3_diff_str = f"+{par3_diff}" if par3_diff > 0 else str(par3_diff)
-        par4_diff_str = f"+{par4_diff}" if par4_diff > 0 else str(par4_diff)
-        par5_diff_str = f"+{par5_diff}" if par5_diff > 0 else str(par5_diff)
-        
-        print(f"\n{Fore.CYAN}Rendimiento por tipo de hoyo:{Style.RESET_ALL}")
-        if par3_indices:
-            print(f"  Par 3 ({len(par3_indices)} hoyos): {par3_strokes} golpes ({par3_diff_str})")
-        if par4_indices:
-            print(f"  Par 4 ({len(par4_indices)} hoyos): {par4_strokes} golpes ({par4_diff_str})")
-        if par5_indices:
-            print(f"  Par 5 ({len(par5_indices)} hoyos): {par5_strokes} golpes ({par5_diff_str})")
+        if hasattr(course, 'hole_pars') and isinstance(course.hole_pars, list) and course.hole_pars:
+            par3_indices = [i for i, par in enumerate(course.hole_pars) if par == 3]
+            par4_indices = [i for i, par in enumerate(course.hole_pars) if par == 4]
+            par5_indices = [i for i, par in enumerate(course.hole_pars) if par == 5]
+            
+            par3_strokes = sum(scorecard.strokes[i] for i in par3_indices if i < len(scorecard.strokes)) if par3_indices else 0
+            par4_strokes = sum(scorecard.strokes[i] for i in par4_indices if i < len(scorecard.strokes)) if par4_indices else 0
+            par5_strokes = sum(scorecard.strokes[i] for i in par5_indices if i < len(scorecard.strokes)) if par5_indices else 0
+            
+            par3_total = sum(course.hole_pars[i] for i in par3_indices) if par3_indices else 0
+            par4_total = sum(course.hole_pars[i] for i in par4_indices) if par4_indices else 0
+            par5_total = sum(course.hole_pars[i] for i in par5_indices) if par5_indices else 0
+            
+            par3_diff = par3_strokes - par3_total if par3_indices else 0
+            par4_diff = par4_strokes - par4_total if par4_indices else 0
+            par5_diff = par5_strokes - par5_total if par5_indices else 0
+            
+            par3_diff_str = f"+{par3_diff}" if par3_diff > 0 else str(par3_diff)
+            par4_diff_str = f"+{par4_diff}" if par4_diff > 0 else str(par4_diff)
+            par5_diff_str = f"+{par5_diff}" if par5_diff > 0 else str(par5_diff)
+            
+            print(f"\n{Fore.CYAN}Rendimiento por tipo de hoyo:{Style.RESET_ALL}")
+            if par3_indices:
+                print(f"  Par 3 ({len(par3_indices)} hoyos): {par3_strokes} golpes ({par3_diff_str})")
+            if par4_indices:
+                print(f"  Par 4 ({len(par4_indices)} hoyos): {par4_strokes} golpes ({par4_diff_str})")
+            if par5_indices:
+                print(f"  Par 5 ({len(par5_indices)} hoyos): {par5_strokes} golpes ({par5_diff_str})")
         
         # Contar resultados por tipo
-        eagles = sum(1 for i, strokes in enumerate(scorecard.strokes) if strokes == course.pars[i] - 2)
-        birdies = sum(1 for i, strokes in enumerate(scorecard.strokes) if strokes == course.pars[i] - 1)
-        pars = sum(1 for i, strokes in enumerate(scorecard.strokes) if strokes == course.pars[i])
-        bogeys = sum(1 for i, strokes in enumerate(scorecard.strokes) if strokes == course.pars[i] + 1)
-        double_bogeys = sum(1 for i, strokes in enumerate(scorecard.strokes) if strokes == course.pars[i] + 2)
-        others = sum(1 for i, strokes in enumerate(scorecard.strokes) if strokes > course.pars[i] + 2)
+        eagles = sum(1 for i, strokes in enumerate(scorecard.strokes) if strokes == course.hole_pars[i] - 2)
+        birdies = sum(1 for i, strokes in enumerate(scorecard.strokes) if strokes == course.hole_pars[i] - 1)
+        pars = sum(1 for i, strokes in enumerate(scorecard.strokes) if strokes == course.hole_pars[i])
+        bogeys = sum(1 for i, strokes in enumerate(scorecard.strokes) if strokes == course.hole_pars[i] + 1)
+        double_bogeys = sum(1 for i, strokes in enumerate(scorecard.strokes) if strokes == course.hole_pars[i] + 2)
+        others = sum(1 for i, strokes in enumerate(scorecard.strokes) if strokes > course.hole_pars[i] + 2)
         
         print(f"\n{Fore.CYAN}Distribución de resultados:{Style.RESET_ALL}")
         print(f"  Eagles o mejor: {eagles}")
@@ -153,7 +160,7 @@ class ScorecardStatsView(BaseView):
         print()
         
         for i in range(len(scorecard.strokes)):
-            hole_par = course.pars[i]
+            hole_par = course.hole_pars[i]
             hole_strokes = scorecard.strokes[i]
             hole_vs_par = hole_strokes - hole_par
             hole_vs_par_str = f"+{hole_vs_par}" if hole_vs_par > 0 else str(hole_vs_par)
@@ -209,7 +216,7 @@ class ScorecardStatsView(BaseView):
         
         # Mostrar información general
         clear_screen()
-        print(format_title(f"ESTADÍSTICAS DE {player.name.upper()}"))
+        print(format_title(f"ESTADÍSTICAS DE {player.full_name.upper()}"))
         
         # Calcular estadísticas básicas
         total_rounds = len(scorecards)
@@ -240,20 +247,25 @@ class ScorecardStatsView(BaseView):
                 continue
             
             # Estadísticas básicas
-            card_strokes = sum(scorecard.strokes)
-            card_par = sum(course.pars)
+            card_strokes = sum(scorecard.strokes) if scorecard.strokes else 0
             
+            # Asegurarse de que course.hole_pars existe y es una lista
+            if hasattr(course, 'hole_pars') and isinstance(course.hole_pars, list) and course.hole_pars:
+                card_par = sum(course.hole_pars)
+            else:
+                card_par = course.par_total if hasattr(course, 'par_total') else 72
+                
             total_strokes += card_strokes
             total_par += card_par
             total_vs_par += (card_strokes - card_par)
             
             # Contar resultados por tipo
-            eagles = sum(1 for i, strokes in enumerate(scorecard.strokes) if strokes == course.pars[i] - 2)
-            birdies = sum(1 for i, strokes in enumerate(scorecard.strokes) if strokes == course.pars[i] - 1)
-            pars = sum(1 for i, strokes in enumerate(scorecard.strokes) if strokes == course.pars[i])
-            bogeys = sum(1 for i, strokes in enumerate(scorecard.strokes) if strokes == course.pars[i] + 1)
-            double_bogeys = sum(1 for i, strokes in enumerate(scorecard.strokes) if strokes == course.pars[i] + 2)
-            others = sum(1 for i, strokes in enumerate(scorecard.strokes) if strokes > course.pars[i] + 2)
+            eagles = sum(1 for i, strokes in enumerate(scorecard.strokes) if strokes == course.hole_pars[i] - 2)
+            birdies = sum(1 for i, strokes in enumerate(scorecard.strokes) if strokes == course.hole_pars[i] - 1)
+            pars = sum(1 for i, strokes in enumerate(scorecard.strokes) if strokes == course.hole_pars[i])
+            bogeys = sum(1 for i, strokes in enumerate(scorecard.strokes) if strokes == course.hole_pars[i] + 1)
+            double_bogeys = sum(1 for i, strokes in enumerate(scorecard.strokes) if strokes == course.hole_pars[i] + 2)
+            others = sum(1 for i, strokes in enumerate(scorecard.strokes) if strokes > course.hole_pars[i] + 2)
             
             total_eagles += eagles
             total_birdies += birdies
@@ -263,17 +275,18 @@ class ScorecardStatsView(BaseView):
             total_others += others
             
             # Rendimiento por tipo de hoyo
-            par3_indices = [i for i, par in enumerate(course.pars) if par == 3]
-            par4_indices = [i for i, par in enumerate(course.pars) if par == 4]
-            par5_indices = [i for i, par in enumerate(course.pars) if par == 5]
-            
-            par3_strokes += sum(scorecard.strokes[i] for i in par3_indices) if par3_indices else 0
-            par4_strokes += sum(scorecard.strokes[i] for i in par4_indices) if par4_indices else 0
-            par5_strokes += sum(scorecard.strokes[i] for i in par5_indices) if par5_indices else 0
-            
-            par3_total += sum(course.pars[i] for i in par3_indices) if par3_indices else 0
-            par4_total += sum(course.pars[i] for i in par4_indices) if par4_indices else 0
-            par5_total += sum(course.pars[i] for i in par5_indices) if par5_indices else 0
+            if hasattr(course, 'hole_pars') and isinstance(course.hole_pars, list) and course.hole_pars:
+                par3_indices = [i for i, par in enumerate(course.hole_pars) if par == 3]
+                par4_indices = [i for i, par in enumerate(course.hole_pars) if par == 4]
+                par5_indices = [i for i, par in enumerate(course.hole_pars) if par == 5]
+                
+                par3_strokes += sum(scorecard.strokes[i] for i in par3_indices if i < len(scorecard.strokes)) if par3_indices else 0
+                par4_strokes += sum(scorecard.strokes[i] for i in par4_indices if i < len(scorecard.strokes)) if par4_indices else 0
+                par5_strokes += sum(scorecard.strokes[i] for i in par5_indices if i < len(scorecard.strokes)) if par5_indices else 0
+                
+                par3_total += sum(course.hole_pars[i] for i in par3_indices) if par3_indices else 0
+                par4_total += sum(course.hole_pars[i] for i in par4_indices) if par4_indices else 0
+                par5_total += sum(course.hole_pars[i] for i in par5_indices) if par5_indices else 0
         
         # Calcular promedios
         avg_strokes = total_strokes / total_rounds
@@ -330,8 +343,14 @@ class ScorecardStatsView(BaseView):
             
             date = scorecard.date
             course_name = course.name
-            strokes = sum(scorecard.strokes)
-            par = sum(course.pars)
+            strokes = sum(scorecard.strokes) if scorecard.strokes else 0
+            
+            # Asegurarse de que course.hole_pars existe y es una lista
+            if hasattr(course, 'hole_pars') and isinstance(course.hole_pars, list) and course.hole_pars:
+                par = sum(course.hole_pars)
+            else:
+                par = course.par_total if hasattr(course, 'par_total') else 72
+                
             vs_par = strokes - par
             vs_par_str = f"+{vs_par}" if vs_par > 0 else str(vs_par)
             
