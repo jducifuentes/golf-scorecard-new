@@ -126,6 +126,30 @@ class ScorecardEditView(BaseView):
         
         pause()
     
+    def _update_scorecard_and_show_result(self, scorecard, **update_params):
+        """
+        Método auxiliar para actualizar una tarjeta y mostrar el resultado.
+        
+        Args:
+            scorecard: Tarjeta a actualizar
+            **update_params: Parámetros para actualizar la tarjeta
+            
+        Returns:
+            tuple: (éxito, tarjeta actualizada)
+        """
+        success, message = self.scorecard_controller.update_scorecard(
+            scorecard.id, **update_params
+        )
+        
+        if success:
+            print(f"{Fore.GREEN}Tarjeta actualizada correctamente.{Style.RESET_ALL}")
+            # Recargar tarjeta con los nuevos datos
+            updated_scorecard = self.scorecard_controller.get_scorecard(scorecard.id)
+            return True, updated_scorecard
+        else:
+            print(f"{Fore.RED}Error al actualizar la tarjeta: {message}{Style.RESET_ALL}")
+            return False, scorecard
+    
     def edit_scorecard(self, scorecard):
         """
         Edita una tarjeta existente.
@@ -175,7 +199,6 @@ class ScorecardEditView(BaseView):
             print("  1. Editar golpes por hoyo")
             print("  2. Editar fecha")
             print("  3. Editar hándicap de juego")
-            print("  4. Guardar y salir")
             print("  0. Cancelar")
             
             option = input("\nSeleccione una opción: ")
@@ -225,23 +248,12 @@ class ScorecardEditView(BaseView):
                             print(f"{Fore.RED}Valor inválido. Debe ingresar un número entero.{Style.RESET_ALL}")
                 
                 # Actualizar tarjeta
-                success, message = self.scorecard_controller.update_scorecard(
-                    scorecard.id,
-                    player_id=scorecard.player_id,
-                    course_id=scorecard.course_id,
-                    date=scorecard.date,
-                    strokes=new_strokes,
-                    playing_handicap=scorecard.playing_handicap,
-                    handicap_coefficient=scorecard.handicap_coefficient
+                success, updated_scorecard = self._update_scorecard_and_show_result(
+                    scorecard, strokes=new_strokes
                 )
                 
                 if success:
-                    print(f"{Fore.GREEN}Tarjeta actualizada correctamente.{Style.RESET_ALL}")
-                    # Recargar tarjeta con los nuevos datos
-                    scorecard = self.scorecard_controller.get_scorecard(scorecard.id)
-                else:
-                    print(f"{Fore.RED}Error al actualizar la tarjeta: {message}{Style.RESET_ALL}")
-                
+                    scorecard = updated_scorecard
                 pause()
             
             elif option == "2":
@@ -253,22 +265,12 @@ class ScorecardEditView(BaseView):
                 new_date = input("Nueva fecha (YYYY-MM-DD, deje en blanco para mantener): ")
                 
                 if new_date:
-                    success, message = self.scorecard_controller.update_scorecard(
-                        scorecard.id,
-                        player_id=scorecard.player_id,
-                        course_id=scorecard.course_id,
-                        date=new_date,
-                        strokes=scorecard.strokes,
-                        playing_handicap=scorecard.playing_handicap,
-                        handicap_coefficient=scorecard.handicap_coefficient
+                    success, updated_scorecard = self._update_scorecard_and_show_result(
+                        scorecard, date=new_date
                     )
                     
                     if success:
-                        print(f"{Fore.GREEN}Fecha actualizada correctamente.{Style.RESET_ALL}")
-                        # Recargar tarjeta con los nuevos datos
-                        scorecard = self.scorecard_controller.get_scorecard(scorecard.id)
-                    else:
-                        print(f"{Fore.RED}Error al actualizar la fecha: {message}{Style.RESET_ALL}")
+                        scorecard = updated_scorecard
                 
                 pause()
             
@@ -288,35 +290,18 @@ class ScorecardEditView(BaseView):
                     try:
                         handicap = float(handicap_input)
                         
-                        success, message = self.scorecard_controller.update_scorecard(
-                            scorecard.id,
-                            player_id=scorecard.player_id,
-                            course_id=scorecard.course_id,
-                            date=scorecard.date,
-                            strokes=scorecard.strokes,
-                            playing_handicap=handicap,
-                            handicap_coefficient=scorecard.handicap_coefficient
+                        success, updated_scorecard = self._update_scorecard_and_show_result(
+                            scorecard, playing_handicap=handicap
                         )
                         
                         if success:
-                            print(f"{Fore.GREEN}Hándicap actualizado correctamente.{Style.RESET_ALL}")
-                            # Recargar tarjeta con los nuevos datos
-                            scorecard = self.scorecard_controller.get_scorecard(scorecard.id)
-                        else:
-                            print(f"{Fore.RED}Error al actualizar el hándicap: {message}{Style.RESET_ALL}")
+                            scorecard = updated_scorecard
                         
                         break
                     except ValueError:
                         print(f"{Fore.RED}Valor inválido. Debe ingresar un número.{Style.RESET_ALL}")
                 
                 pause()
-            
-            elif option == "4":
-                # Guardar y salir
-                print(f"{Fore.GREEN}Cambios guardados correctamente.{Style.RESET_ALL}")
-                pause()
-                editing = False
-                return True
             
             elif option == "0":
                 # Cancelar
