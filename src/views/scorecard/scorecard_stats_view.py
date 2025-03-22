@@ -4,7 +4,7 @@ Vista para mostrar estadísticas de las tarjetas de puntuación.
 import os
 from colorama import Fore, Style
 from src.views.base_view import BaseView
-from src.views.utils import format_title, format_info, clear_screen, pause
+from src.views.utils import format_title, format_info, clear_screen, pause, format_table
 from src.views.scorecard.scorecard_utils import ScorecardUtils
 
 
@@ -138,51 +138,113 @@ class ScorecardStatsView(BaseView):
         print(f"  Doble Bogeys: {double_bogeys}")
         print(f"  Triple Bogey o peor: {others}")
         
-        # Mostrar detalle por hoyo
-        print(f"\n{Fore.CYAN}Detalle por hoyo:{Style.RESET_ALL}")
-        print(f"  {'Hoyo':4s} | {'Par':3s} | {'Golpes':6s} | {'vs Par':6s}", end="")
-        
-        if scorecard.handicap_strokes:
-            print(f" | {'Neto':4s} | {'vs Par Neto':11s}", end="")
-        
-        if scorecard.points:
-            print(f" | {'Puntos':6s}", end="")
-        
-        print()
-        print("  " + "-" * 25, end="")
-        
-        if scorecard.handicap_strokes:
-            print("-" * 19, end="")
-        
-        if scorecard.points:
-            print("-" * 9, end="")
-        
-        print()
-        
-        for i in range(len(scorecard.strokes)):
-            hole_par = course.hole_pars[i]
-            hole_strokes = scorecard.strokes[i]
-            hole_vs_par = hole_strokes - hole_par
-            hole_vs_par_str = f"+{hole_vs_par}" if hole_vs_par > 0 else str(hole_vs_par)
-            
-            print(f"  {i+1:4d} | {hole_par:3d} | {hole_strokes:6d} | {hole_vs_par_str:6s}", end="")
-            
-            if scorecard.handicap_strokes:
-                hole_handicap_strokes = scorecard.handicap_strokes[i]
-                hole_net_strokes = hole_strokes - hole_handicap_strokes
-                hole_net_vs_par = hole_net_strokes - hole_par
-                hole_net_vs_par_str = f"+{hole_net_vs_par}" if hole_net_vs_par > 0 else str(hole_net_vs_par)
-                
-                print(f" | {hole_net_strokes:4d} | {hole_net_vs_par_str:11s}", end="")
-            
-            if scorecard.points:
-                hole_points = scorecard.points[i]
-                print(f" | {hole_points:6d}", end="")
-            
-            print()
+        # Mostrar detalles por hoyo
+        self.show_hole_details(scorecard, course)
         
         pause()
         return True
+    
+    def show_hole_details(self, scorecard, course):
+        """
+        Muestra los detalles de cada hoyo de la tarjeta.
+        
+        Args:
+            scorecard: Tarjeta a mostrar
+            course: Campo asociado a la tarjeta
+        """
+        clear_screen()
+        print(format_title(f"DETALLES POR HOYO - TARJETA #{scorecard.id}"))
+        
+        # Mostrar información básica
+        player = self.player_controller.get_player(scorecard.player_id)
+        if player:
+            print(f"\n{Fore.CYAN}Jugador: {player.first_name} {player.surname}{Style.RESET_ALL}")
+        
+        print(f"{Fore.CYAN}Campo: {course.name}{Style.RESET_ALL}")
+        print(f"{Fore.CYAN}Fecha: {scorecard.date}{Style.RESET_ALL}")
+        print(f"{Fore.CYAN}Hándicap de juego: {scorecard.playing_handicap or 'N/A'}{Style.RESET_ALL}")
+        
+        # Mostrar tabla de detalles
+        print(f"\n{Fore.YELLOW}{Style.BRIGHT}Detalles por Hoyo:{Style.RESET_ALL}")
+        
+        # Preparar datos para la tabla
+        headers = ["Hoyo", "Hdcp", "Par", "Golpes", "Puntos", "Resultado"]
+        table_data = []
+        
+        for i, stroke in enumerate(scorecard.strokes):
+            if i < len(course.hole_pars) and i < len(course.hole_handicaps):
+                hole_num = i + 1
+                par = course.hole_pars[i]
+                hole_handicap = course.hole_handicaps[i]
+                
+                # Calcular golpes extra por hándicap para este hoyo
+                extra_strokes = 0
+                if scorecard.playing_handicap is not None:
+                    if scorecard.playing_handicap >= hole_handicap:
+                        extra_strokes += 1
+                    if scorecard.playing_handicap >= hole_handicap + 18:
+                        extra_strokes += 1
+                    if scorecard.playing_handicap >= hole_handicap + 36:
+                        extra_strokes += 1
+                
+                # Mostrar golpes extra como asteriscos entre paréntesis
+                par_text = f"{par}"
+                if extra_strokes > 0:
+                    par_text += f" ({'*' * extra_strokes})"
+                
+                # Obtener puntos si están disponibles
+                points = scorecard.points[i] if hasattr(scorecard, 'points') and i < len(scorecard.points) else "-"
+                
+                # Formatear golpes y puntos con colores
+                stroke_text = ScorecardUtils.format_stroke_result(
+                    stroke, par, 
+                    playing_handicap=scorecard.playing_handicap, 
+                    hole_handicap=hole_handicap
+                )
+                points_text = ScorecardUtils.format_points(points) if points != "-" else "-"
+                
+                # Calcular resultado
+                if stroke is not None and par is not None:
+                    # Calcular resultado neto (sin descontar golpes extra)
+                    diff = stroke - par
+                    
+                    if diff < 0:
+                        result = f"{Fore.LIGHTBLUE_EX}Bajo par{Style.RESET_ALL}"
+                    elif diff == 0:
+                        result = f"{Fore.LIGHTCYAN_EX}Par{Style.RESET_ALL}"
+                    elif diff == 1:
+                        result = f"{Fore.GREEN}Bogey{Style.RESET_ALL}"
+                    elif diff == 2:
+                        result = f"{Fore.YELLOW}Doble Bogey{Style.RESET_ALL}"
+                    else:
+                        result = f"{Fore.RED}Triple Bogey o peor{Style.RESET_ALL}"
+                else:
+                    result = "-"
+                
+                # Añadir fila a la tabla
+                table_data.append([
+                    hole_num,
+                    hole_handicap,
+                    par_text,
+                    stroke_text,
+                    points_text,
+                    result
+                ])
+        
+        # Añadir fila de totales
+        table_data.append([
+            "Total",
+            "",
+            course.par_total,
+            scorecard.total_strokes(),
+            scorecard.total_points() if hasattr(scorecard, 'total_points') else '-',
+            ""
+        ])
+        
+        # Mostrar tabla formateada
+        print("\n" + format_table(headers, table_data, highlight_last_row=True))
+        
+        pause()
     
     def show_player_stats(self):
         """

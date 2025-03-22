@@ -78,6 +78,8 @@ class ScorecardCreateView(BaseView):
         print(f"\n{Fore.CYAN}Seleccione un jugador:{Style.RESET_ALL}")
         for i, player in enumerate(players):
             print(f"  {i+1}. {player.first_name} {player.surname} (Hándicap: {player.handicap})")
+        print("")
+
         print(f"  0. Añadir nuevo jugador")
         
         player_option = input("\nNúmero de jugador (0 para añadir nuevo): ")
@@ -110,6 +112,7 @@ class ScorecardCreateView(BaseView):
         print(f"\n{Fore.CYAN}Seleccione un campo:{Style.RESET_ALL}")
         for i, course in enumerate(courses):
             print(f"  {i+1}. {course.name} ({course.location})")
+        print("")
         print(f"  0. Añadir nuevo campo")
         
         course_option = input("\nNúmero de campo (0 para añadir nuevo): ")

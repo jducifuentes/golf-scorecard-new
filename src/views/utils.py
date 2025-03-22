@@ -67,7 +67,7 @@ def format_warning(text):
     """
     return f"{Fore.YELLOW}{text}{Style.RESET_ALL}"
 
-def format_table(headers, rows, widths=None):
+def format_table(headers, rows, widths=None, highlight_last_row=False):
     """
     Formatea una tabla para mostrarla en la consola.
     
@@ -75,6 +75,7 @@ def format_table(headers, rows, widths=None):
         headers (list): Lista de encabezados de la tabla
         rows (list): Lista de filas de la tabla
         widths (list, optional): Lista de anchos para cada columna
+        highlight_last_row (bool, optional): Si es True, destaca la última fila
         
     Returns:
         str: Tabla formateada
@@ -85,7 +86,18 @@ def format_table(headers, rows, widths=None):
         for i in range(len(headers)):
             col_values = [str(row[i]) if i < len(row) else "" for row in rows]
             col_values.append(str(headers[i]))
-            widths.append(max(len(val) for val in col_values) + 2)
+            # Ajustar el ancho para códigos ANSI
+            adjusted_values = []
+            for val in col_values:
+                # Si tiene códigos ANSI, calcular la longitud visible
+                if "\033[" in val:
+                    # Eliminar todos los códigos ANSI para calcular la longitud real
+                    import re
+                    clean_val = re.sub(r'\033\[[0-9;]+m', '', val)
+                    adjusted_values.append(clean_val)
+                else:
+                    adjusted_values.append(val)
+            widths.append(max(len(val) for val in adjusted_values) + 4)  # Añadir más espacio
     
     # Crear línea de separación
     separator = "+" + "+".join("-" * width for width in widths) + "+"
@@ -97,16 +109,44 @@ def format_table(headers, rows, widths=None):
     
     # Formatear filas
     formatted_rows = []
-    for row in rows:
+    for idx, row in enumerate(rows):
+        is_last_row = idx == len(rows) - 1
         formatted_row = "|"
+        
         for i, cell in enumerate(row):
             if i < len(widths):
-                formatted_row += f" {str(cell).ljust(widths[i]-2)} |"
+                cell_str = str(cell)
+                # Centrar el valor si es la última fila (totales)
+                if is_last_row and highlight_last_row:
+                    formatted_cell = f" {Fore.WHITE}{Style.BRIGHT}{cell_str.center(widths[i]-2)}{Style.RESET_ALL} "
+                else:
+                    # Mantener el formato si ya tiene colores
+                    if "\033[" in cell_str:  # Tiene códigos ANSI
+                        # Calcular el espacio visible (sin códigos ANSI)
+                        import re
+                        clean_cell = re.sub(r'\033\[[0-9;]+m', '', cell_str)
+                        padding = widths[i] - 2 - len(clean_cell)
+                        formatted_cell = f" {cell_str}{' ' * padding} "
+                    else:
+                        formatted_cell = f" {cell_str.ljust(widths[i]-2)} "
+                formatted_row += formatted_cell + "|"
+            else:
+                formatted_row += " " * (widths[-1] - 1) + "|"
+        
         formatted_rows.append(formatted_row)
     
-    # Combinar todo
+    # Crear línea de separación para la última fila si se destaca
+    last_row_separator = "+" + "+".join("=" * width for width in widths) + "+" if highlight_last_row else separator
+    
+    # Unir todo
     table = separator + "\n" + header_row + "\n" + separator + "\n"
-    table += "\n".join(formatted_rows)
-    table += "\n" + separator
+    table += "\n".join(formatted_rows[:-1])  # Todas las filas excepto la última
+    
+    if highlight_last_row and len(formatted_rows) > 0:
+        # Añadir separador antes de la última fila
+        table += "\n" + separator + "\n" + formatted_rows[-1] + "\n" + last_row_separator
+    else:
+        # Añadir la última fila sin separador especial
+        table += "\n" + formatted_rows[-1] + "\n" + separator
     
     return table

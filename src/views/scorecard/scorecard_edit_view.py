@@ -3,7 +3,7 @@ Vista para la edición de tarjetas de puntuación.
 """
 from colorama import Fore, Style
 from src.views.base_view import BaseView
-from src.views.utils import format_title, format_info, clear_screen, pause
+from src.views.utils import format_title, format_info, clear_screen, pause, format_table
 from src.views.scorecard.scorecard_utils import ScorecardUtils
 
 
@@ -66,25 +66,63 @@ class ScorecardEditView(BaseView):
         # Mostrar detalles por hoyo
         if course and scorecard.strokes:
             print(f"\n{Fore.YELLOW}{Style.BRIGHT}Detalles por Hoyo:{Style.RESET_ALL}")
-            print("\n  Hoyo  | Par | Golpes | Puntos")
-            print("  " + "-" * 40)
+            
+            # Preparar datos para la tabla
+            headers = ["Hoyo", "Hdcp", "Par", "Golpes", "Puntos"]
+            table_data = []
             
             for i, stroke in enumerate(scorecard.strokes):
-                if i < len(course.hole_pars):
+                if i < len(course.hole_pars) and i < len(course.hole_handicaps):
                     hole_num = i + 1
                     par = course.hole_pars[i]
+                    hole_handicap = course.hole_handicaps[i]
+                    
+                    # Calcular golpes extra por hándicap para este hoyo
+                    extra_strokes = 0
+                    if scorecard.playing_handicap is not None:
+                        if scorecard.playing_handicap >= hole_handicap:
+                            extra_strokes += 1
+                        if scorecard.playing_handicap >= hole_handicap + 18:
+                            extra_strokes += 1
+                        if scorecard.playing_handicap >= hole_handicap + 36:
+                            extra_strokes += 1
+                    
+                    # Mostrar golpes extra como asteriscos entre paréntesis
+                    par_text = f"{par}"
+                    if extra_strokes > 0:
+                        par_text += f" ({'*' * extra_strokes})"
                     
                     # Obtener puntos si están disponibles
                     points = scorecard.points[i] if hasattr(scorecard, 'points') and i < len(scorecard.points) else "-"
                     
-                    # Formatear golpes con colores
-                    stroke_text = ScorecardUtils.format_stroke_result(stroke, par)
+                    # Formatear golpes y puntos con colores
+                    stroke_text = ScorecardUtils.format_stroke_result(
+                        stroke, par, 
+                        playing_handicap=scorecard.playing_handicap, 
+                        hole_handicap=hole_handicap
+                    )
+                    points_text = ScorecardUtils.format_points(points) if points != "-" else "-"
                     
-                    print(f"  {hole_num:2d}    | {par:3d} | {stroke_text:6s} | {points}")
+                    # Añadir fila a la tabla
+                    table_data.append([
+                        hole_num,
+                        hole_handicap,
+                        par_text,
+                        stroke_text,
+                        points_text
+                    ])
             
-            # Mostrar totales
-            print("  " + "-" * 40)
-            print(f"  Total | {course.par_total:3d} | {scorecard.total_strokes():6d} | {scorecard.total_points() if hasattr(scorecard, 'total_points') else '-'}")
+            # Añadir fila de totales
+            table_data.append([
+                "Total",
+                "",
+                course.par_total,
+                scorecard.total_strokes(),
+                scorecard.total_points() if hasattr(scorecard, 'total_points') else '-'
+            ])
+            
+            # Mostrar tabla formateada
+            print("\n" + format_table(headers, table_data, highlight_last_row=True))
         
         pause()
     

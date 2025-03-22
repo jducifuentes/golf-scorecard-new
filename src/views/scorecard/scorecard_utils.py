@@ -79,13 +79,15 @@ class ScorecardUtils:
         return data
     
     @staticmethod
-    def format_stroke_result(strokes, par):
+    def format_stroke_result(strokes, par, playing_handicap=None, hole_handicap=None):
         """
-        Formatea el resultado de golpes con colores según el par.
+        Formatea el resultado de golpes con colores según el par y hándicap.
         
         Args:
             strokes: Número de golpes
             par: Par del hoyo
+            playing_handicap: Hándicap de juego del jugador
+            hole_handicap: Hándicap del hoyo
             
         Returns:
             str: Texto formateado con colores
@@ -96,16 +98,30 @@ class ScorecardUtils:
         if par is None:
             return str(strokes)
         
+        # Calcular golpes extra por hándicap para este hoyo (no se usan en esta función)
+        extra_strokes = 0
+        if playing_handicap is not None and hole_handicap is not None:
+            # Distribuir el hándicap según la dificultad de los hoyos
+            if playing_handicap >= hole_handicap:
+                extra_strokes += 1
+            # Para hándicaps altos, se pueden asignar más de un golpe extra por hoyo
+            if playing_handicap >= hole_handicap + 18:
+                extra_strokes += 1
+            # Para hándicaps muy altos (36+), se pueden asignar hasta 3 golpes extra
+            if playing_handicap >= hole_handicap + 36:
+                extra_strokes += 1
+        
+        # Calcular diferencia con el par
+        diff = strokes - par
+        
         # Formatear con colores según el resultado
-        if strokes < par - 1:  # Eagle o mejor
-            return f"{Fore.MAGENTA}{Style.BRIGHT}{strokes}{Style.RESET_ALL}"
-        elif strokes == par - 1:  # Birdie
-            return f"{Fore.RED}{Style.BRIGHT}{strokes}{Style.RESET_ALL}"
-        elif strokes == par:  # Par
+        if diff < 0:  # Bajo par
+            return f"{Fore.LIGHTBLUE_EX}{strokes}{Style.RESET_ALL}"
+        elif diff == 0:  # Par
+            return f"{Fore.LIGHTCYAN_EX}{strokes}{Style.RESET_ALL}"
+        elif diff == 1:  # Bogey
             return f"{Fore.GREEN}{strokes}{Style.RESET_ALL}"
-        elif strokes == par + 1:  # Bogey
-            return f"{Fore.BLUE}{strokes}{Style.RESET_ALL}"
-        elif strokes == par + 2:  # Doble Bogey
+        elif diff == 2:  # Doble Bogey
             return f"{Fore.YELLOW}{strokes}{Style.RESET_ALL}"
         else:  # Triple Bogey o peor
             return f"{Fore.RED}{strokes}{Style.RESET_ALL}"
@@ -125,14 +141,18 @@ class ScorecardUtils:
             return "-"
         
         # Formatear con colores según los puntos
-        if points >= 3:  # 3 o más puntos
-            return f"{Fore.GREEN}{Style.BRIGHT}{points}{Style.RESET_ALL}"
+        if points == 0:  # 0 puntos
+            return f"{Fore.RED}{points}{Style.RESET_ALL}"
+        elif points == 1:  # 1 punto
+            return f"{Fore.GREEN}{points}{Style.RESET_ALL}"
         elif points == 2:  # 2 puntos
             return f"{Fore.BLUE}{points}{Style.RESET_ALL}"
-        elif points == 1:  # 1 punto
+        elif points == 3:  # 3 puntos
+            return f"{Fore.CYAN}{points}{Style.RESET_ALL}"
+        elif points == 4:  # 4 puntos
+            return f"{Fore.LIGHTYELLOW_EX}{points}{Style.RESET_ALL}"
+        else:  # 5 o más puntos
             return f"{Fore.YELLOW}{points}{Style.RESET_ALL}"
-        else:  # 0 puntos
-            return f"{Fore.RED}{points}{Style.RESET_ALL}"
     
     @staticmethod
     def get_score_name(strokes, par):

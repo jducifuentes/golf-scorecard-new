@@ -94,7 +94,6 @@ class ScorecardListView(BaseView):
                 # Añadir fila a la tabla
                 table_data.append([
                     i + 1,
-                    sc.id,
                     player_name,
                     course_name,
                     display_date,
@@ -103,7 +102,7 @@ class ScorecardListView(BaseView):
                 ])
             
             # Mostrar tabla
-            headers = ["#", "ID", "Jugador", "Campo", "Fecha", "Golpes", "Puntos"]
+            headers = ["#",  "Jugador", "Campo", "Fecha", "Golpes", "Puntos"]
             print("\n" + format_table(headers, table_data))
             
             # Opciones
