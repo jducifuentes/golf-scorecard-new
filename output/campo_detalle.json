@@ -1,0 +1,242 @@
+{
+  "url": "https://rfegolf.es/ClubPaginas/ClubMicrosite.aspx?ClubId=710",
+  "id": "710",
+  "recorridos": [
+    {
+      "id": "1607",
+      "nombre": "HIERRO 3 REINO DE LEON",
+      "barras": [
+        {
+          "nombre": "AMARILLAS",
+          "hoyos": [
+            {
+              "numero": 1,
+              "metros": "438",
+              "par": "5",
+              "hcp": "9"
+            },
+            {
+              "numero": 2,
+              "metros": "275",
+              "par": "4",
+              "hcp": "13"
+            },
+            {
+              "numero": 3,
+              "metros": "140",
+              "par": "3",
+              "hcp": "10"
+            },
+            {
+              "numero": 4,
+              "metros": "247",
+              "par": "4",
+              "hcp": "4"
+            },
+            {
+              "numero": 5,
+              "metros": "231",
+              "par": "4",
+              "hcp": "5"
+            },
+            {
+              "numero": 6,
+              "metros": "454",
+              "par": "5",
+              "hcp": "1"
+            },
+            {
+              "numero": 7,
+              "metros": "150",
+              "par": "3",
+              "hcp": "8"
+            },
+            {
+              "numero": 8,
+              "metros": "287",
+              "par": "4",
+              "hcp": "6"
+            },
+            {
+              "numero": 9,
+              "metros": "270",
+              "par": "4",
+              "hcp": "17"
+            },
+            {
+              "numero": 10,
+              "metros": "354",
+              "par": "4",
+              "hcp": "2"
+            },
+            {
+              "numero": 11,
+              "metros": "271",
+              "par": "4",
+              "hcp": "16"
+            },
+            {
+              "numero": 12,
+              "metros": "138",
+              "par": "3",
+              "hcp": "14"
+            },
+            {
+              "numero": 13,
+              "metros": "222",
+              "par": "4",
+              "hcp": "15"
+            },
+            {
+              "numero": 14,
+              "metros": "224",
+              "par": "4",
+              "hcp": "7"
+            },
+            {
+              "numero": 15,
+              "metros": "438",
+              "par": "5",
+              "hcp": "3"
+            },
+            {
+              "numero": 16,
+              "metros": "137",
+              "par": "3",
+              "hcp": "12"
+            },
+            {
+              "numero": 17,
+              "metros": "268",
+              "par": "4",
+              "hcp": "11"
+            },
+            {
+              "numero": 18,
+              "metros": "254",
+              "par": "4",
+              "hcp": "18"
+            }
+          ],
+          "slope": 126,
+          "valoracion": 70.5
+        },
+        {
+          "nombre": "ROJAS",
+          "hoyos": [
+            {
+              "numero": 1,
+              "metros": "384",
+              "par": "5",
+              "hcp": "9"
+            },
+            {
+              "numero": 2,
+              "metros": "244",
+              "par": "4",
+              "hcp": "13"
+            },
+            {
+              "numero": 3,
+              "metros": "110",
+              "par": "3",
+              "hcp": "10"
+            },
+            {
+              "numero": 4,
+              "metros": "232",
+              "par": "4",
+              "hcp": "4"
+            },
+            {
+              "numero": 5,
+              "metros": "205",
+              "par": "4",
+              "hcp": "5"
+            },
+            {
+              "numero": 6,
+              "metros": "409",
+              "par": "5",
+              "hcp": "1"
+            },
+            {
+              "numero": 7,
+              "metros": "118",
+              "par": "3",
+              "hcp": "8"
+            },
+            {
+              "numero": 8,
+              "metros": "241",
+              "par": "4",
+              "hcp": "6"
+            },
+            {
+              "numero": 9,
+              "metros": "207",
+              "par": "4",
+              "hcp": "17"
+            },
+            {
+              "numero": 10,
+              "metros": "332",
+              "par": "4",
+              "hcp": "2"
+            },
+            {
+              "numero": 11,
+              "metros": "254",
+              "par": "4",
+              "hcp": "16"
+            },
+            {
+              "numero": 12,
+              "metros": "90",
+              "par": "3",
+              "hcp": "14"
+            },
+            {
+              "numero": 13,
+              "metros": "209",
+              "par": "4",
+              "hcp": "15"
+            },
+            {
+              "numero": 14,
+              "metros": "194",
+              "par": "4",
+              "hcp": "7"
+            },
+            {
+              "numero": 15,
+              "metros": "398",
+              "par": "5",
+              "hcp": "3"
+            },
+            {
+              "numero": 16,
+              "metros": "101",
+              "par": "3",
+              "hcp": "12"
+            },
+            {
+              "numero": 17,
+              "metros": "226",
+              "par": "4",
+              "hcp": "11"
+            },
+            {
+              "numero": 18,
+              "metros": "197",
+              "par": "4",
+              "hcp": "18"
+            }
+          ],
+          "slope": 122,
+          "valoracion": 68.5
+        }
+      ]
+    }
+  ]
+}

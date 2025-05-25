@@ -1,0 +1,13 @@
+Inicio de descarga: 2025-03-23 15:35:15
+Total de campos: 6
+
+15:35:16 - Campo 983 (EL VALLE GOLF): Descargado correctamente
+15:35:21 - Campo 518 (EMPORDA GOLF CLUB): Descargado correctamente
+15:35:26 - Campo 332 (CLUB DE GOLF ENTREPINOS): Descargado correctamente
+15:35:31 - Campo 481 (ESCUELA PÚBLICA LA CARTUJA): Descargado correctamente
+15:35:36 - Campo 563 (FORUS GOLF LAS REJAS): Descargado correctamente
+15:35:41 - Campo 913 (CLUB DE CAMPO LAUKARIZ): Descargado correctamente
+
+
+Proceso completado. Total: 6, Éxitos: 6, Fallos: 0, Omitidos: 0
+Fin de descarga: 2025-03-23 15:35:45

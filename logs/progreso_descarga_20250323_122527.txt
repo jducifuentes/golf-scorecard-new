@@ -1,0 +1,412 @@
+Inicio de descarga: 2025-03-23 12:25:27
+Total de campos: 405
+
+12:25:28 - Campo 593 (CAMPO DE GOLF ABAMA): Descargado correctamente
+12:25:33 - Campo 480 (AGUILON GOLF): Descargado correctamente
+12:25:38 - Campo 461 (ALBORÁN GOLF): Descargado correctamente
+12:25:43 - Campo 505 (CLUB DE GOLF ALCANADA): Descargado correctamente
+12:25:48 - Campo 351 (ALDEAMAYOR CLUB DE GOLF): Descargado correctamente
+12:25:53 - Campo 935 (ALENDA GOLF CLUB): Descargado correctamente
+12:25:58 - Campo 405 (ALHAURÍN GOLF HOTEL & RESORT): Descargado correctamente
+12:26:03 - Campo 650 (ALICANTE GOLF COURSE): Descargado correctamente
+12:26:09 - Campo 451 (ALMENARA  HOTEL - GOLF): Descargado correctamente
+12:26:14 - Campo 422 (GOLF ALMERIMAR): Descargado correctamente
+12:26:19 - Campo 420 (ALOHA GOLF): Descargado correctamente
+12:26:24 - Campo 660 (CAMPO DE GOLF ALTAONA): Descargado correctamente
+12:26:29 - Campo 625 (ALTEA CLUB DE GOLF): Descargado correctamente
+12:26:34 - Campo 659 (CLUB DE GOLF ALTORREAL): Descargado correctamente
+12:26:39 - Campo 583 (AMARILLA GOLF CLUB): Descargado correctamente
+12:26:45 - Campo 496 (CLUB DE GOLF ANDRATX): Descargado correctamente
+12:26:51 - Campo 597 (ANFI TAURO GOLF): Descargado correctamente
+12:26:56 - Campo 346 (LOS ANGELES DE SAN RAFAEL GOLF): Descargado correctamente
+12:27:02 - Campo 454 (ANTEQUERA GOLF): Descargado correctamente
+12:27:07 - Campo 570 (CLUB DE GOLF ARANJUEZ): Descargado correctamente
+12:27:13 - Campo 535 (ARAVELL GOLF CLUB & COUNTRY CLUB): Descargado correctamente
+12:27:18 - Campo 276 (ARCOS GOLF): Descargado correctamente
+12:27:24 - Campo 323 (): Descargado correctamente
+12:27:25 - Campo 709 (CLUB DE GOLF AREVALO): Descargado correctamente
+12:27:31 - Campo 445 (LOS ARQUEROS GOLF & COUNTRY CLUB): Descargado correctamente
+12:27:36 - Campo 417 (ATALAYA GOLF & COUNTRY CLUB INTERNACIONAL, S.A.): Descargado correctamente
+12:27:50 - Campo 610 (CLUB DE GOLF AUGAS SANTAS): Descargado correctamente
+12:27:56 - Campo 1196 (AZATA GOLF): Descargado correctamente
+12:28:01 - Campo 1174 (CLUB AZULINE IBIZA GOLF): Descargado correctamente
+12:28:06 - Campo 607 (GOLF BALNEARIO DE GUITIRIZ): Descargado correctamente
+12:28:08 - Campo 606 (CAMPO DE GOLF BALNEARIO DE MONDARIZ): Descargado correctamente
+12:28:14 - Campo 446 (BANUS EXECUTIVE GOLF): Descargado correctamente
+12:28:19 - Campo 550 (C.D.S.C.E.A. BARBERAN Y COLLAR): Descargado correctamente
+12:28:25 - Campo 519 (CLUB DE GOLF DE BARCELONA): Descargado correctamente
+12:29:02 - Campo 918 (REAL NUEVO CLUB S.SEBASTIAN BASOZABAL): Descargado correctamente
+12:29:07 - Campo 421 (BAVIERA GOLF): Descargado correctamente
+12:29:12 - Campo 707 (CLUB DE GOLF DE BEJAR): Descargado correctamente
+12:29:18 - Campo 395 (CLUB DE GOLF BELLAVISTA): Descargado correctamente
+12:29:23 - Campo 462 (BENALMADENA GOLF): Descargado correctamente
+12:29:28 - Campo 289 (BENASQUE CLUB, S.A): Descargado correctamente
+12:29:30 - Campo 492 (REAL GOLF BENDINAT): Descargado correctamente
+12:29:35 - Campo 931 (BIL BIL GOLF): Descargado correctamente
+12:29:40 - Campo 706 (BOCIGAS CLUB DE GOLF): Descargado correctamente
+12:29:45 - Campo 649 (CLUB DE GOLF DE BONALBA): Descargado correctamente
+12:29:51 - Campo 521 (CLUB DE GOLF BONMONT TERRES NOVES): Descargado correctamente
+12:29:56 - Campo 922 (): Descargado correctamente
+12:29:57 - Campo 1165 (Club Deportivo Boxer's Green): Descargado correctamente
+12:29:58 - Campo 591 (BUENAVISTA GOLF): Descargado correctamente
+12:30:04 - Campo 437 (CLUB DEPORTIVO AÑORETA GOLF): Descargado correctamente
+12:30:09 - Campo 1136 (CABOPINO GOLF MARBELLA): Descargado correctamente
+12:30:14 - Campo 1154 (CALANOVA GOLF CLUB): Descargado correctamente
+12:30:19 - Campo 292 (GAMBITO GOLF CLUB CALATAYUD): Descargado correctamente
+12:30:24 - Campo 515 (GOLF DE CALDES): Descargado correctamente
+12:30:30 - Campo 654 (PANORAMICA GOLF, SPORTS & RESORT): Descargado correctamente
+12:30:35 - Campo 1171 (EL CAMPANARIO OCIO Y TURISMO): Descargado correctamente
+12:30:40 - Campo 315 (CAMPO DE GOLF ABRA DEL PAS): Descargado correctamente
+12:30:46 - Campo 389 (REAL CLUB DE CAMPO DE MALAGA): Descargado correctamente
+12:30:51 - Campo 1049 (CAMPO MUNICIPAL GALISTEO GOLF): Descargado correctamente
+12:30:56 - Campo 642 (LA SELLA GOLF (CAMPO)): Descargado correctamente
+12:31:01 - Campo 909 (CLUB DE GOLF EL CAMPO DE LOGROÑO): Descargado correctamente
+12:31:06 - Campo 986 (CAMPO DE GOLF NESTARES): Descargado correctamente
+12:31:11 - Campo 387 (CAMPO DE GOLF DE TALAYUELA): Descargado correctamente
+12:31:16 - Campo 647 (CLUB DE GOLF CAMPOAMOR): Descargado correctamente
+12:31:22 - Campo 603 (CLUB CAMPOMAR): Descargado correctamente
+12:31:27 - Campo 661 (CAMPOSOL CLUB DE GOLF): Descargado correctamente
+12:31:32 - Campo 513 (CLUB DE GOLF CAMPRODON): Descargado correctamente
+12:31:37 - Campo 494 (CAMPO DE GOLF CANYAMEL): Descargado correctamente
+12:31:42 - Campo 493 (CLUB DE GOLF CAPDEPERA): Descargado correctamente
+12:31:48 - Campo 476 (CASARES COSTA GOLF): Descargado correctamente
+12:31:53 - Campo 328 (CASINO ABULENSE): Descargado correctamente
+12:31:58 - Campo 524 (CLUB DE GOLF CASTELLTERCOL): Descargado correctamente
+12:32:03 - Campo 297 (REAL CLUB DE GOLF DE CASTIELLO): Descargado correctamente
+12:32:08 - Campo 293 (CAMPO MUNICIPAL DE GOLF EL CASTILLEJO): Descargado correctamente
+12:32:13 - Campo 310 (CASTROPOL GOLF): Descargado correctamente
+12:32:18 - Campo 329 (CLUB DE CAMPO EL TIRO): Descargado correctamente
+12:32:23 - Campo 577 (CENTRO NACIONAL DE GOLF): Descargado correctamente
+12:32:28 - Campo 508 (REAL CLUB DE GOLF DE CERDAÑA): Descargado correctamente
+12:32:34 - Campo 357 (CLUB DEPORTIVO DE GOLF CERRADA DE RIOSECO DE SORIA): Descargado correctamente
+12:32:39 - Campo 602 (CLUB CHAN DO FENTO (MEIS)): Descargado correctamente
+12:32:44 - Campo 1135 (EL CHAPARRAL GOLF CLUB): Descargado correctamente
+12:32:50 - Campo 1159 (CHICLANA FAMILY GOLF PARK): Descargado correctamente
+12:32:55 - Campo 301 (CLUB DE GOLF CIERRO GRANDE): Descargado correctamente
+12:33:00 - Campo 716 (CLUB DE GOLF DE CIFUENTES): Descargado correctamente
+12:33:05 - Campo 470 (SANTA CLARA GOLF CLUB GRANADA): Descargado correctamente
+12:33:10 - Campo 997 (REAL CLUB VALDERRAMA): Descargado correctamente
+12:33:15 - Campo 295 (CLUB DE GOLF JACA): Descargado correctamente
+12:33:16 - Campo 695 (CLUB DE GOLF MATALEÑAS): Descargado correctamente
+12:33:21 - Campo 566 (): Descargado correctamente
+12:33:23 - Campo 708 (CLUB DE GOLF ZAMORA VALDERREY): Descargado correctamente
+12:33:28 - Campo 671 (ALHAMA SIGNATURE): Descargado correctamente
+12:33:33 - Campo 394 (REAL CLUB DE CAMPO DE CORDOBA): Descargado correctamente
+12:33:39 - Campo 448 (CLUB DE GOLF CORTA ATALAYA): Descargado correctamente
+12:33:44 - Campo 993 (CORVERA GOLF CLUB): Descargado correctamente
+12:33:46 - Campo 586 (GOLF COSTA ADEJE): Descargado correctamente
+12:33:58 - Campo 623 (CLUB DE GOLF COSTA DE AZAHAR): Descargado correctamente
+12:34:03 - Campo 279 (COSTA BALLENA OCEAN GOLF CLUB): Descargado correctamente
+12:34:09 - Campo 510 (CLUB DE GOLF COSTA BRAVA): Descargado correctamente
+12:34:14 - Campo 512 (GOLF COSTA DAURADA): Descargado correctamente
+12:34:19 - Campo 477 (): Descargado correctamente
+12:34:20 - Campo 581 (CLUB DE GOLF COSTA TEGUISE): Descargado correctamente
+12:34:25 - Campo 438 (CLUB DE GOLF EL COTO): Descargado correctamente
+12:34:30 - Campo 367 (CLUB DE GOLF CUESTA BLANCA): Descargado correctamente
+12:34:35 - Campo 531 (CLUB DE GOLF D'ARO): Descargado correctamente
+12:34:40 - Campo 343 (LA DEHESA DE MORON): Descargado correctamente
+12:34:45 - Campo 1014 (AGRUPACION DEPORTIVA GOLF DE DERIO): Descargado correctamente
+12:34:50 - Campo 426 (DESERT SPRINGS GOLF CLUB): Descargado correctamente
+12:34:56 - Campo 385 (DON TELLO GOLF): Descargado correctamente
+12:35:01 - Campo 465 (DOÑA JULIA GOLF CLUB): Descargado correctamente
+12:35:06 - Campo 441 (): Descargado correctamente
+12:35:08 - Campo 1162 (): Descargado correctamente
+12:35:09 - Campo 338 (CLUB DE GOLF EL BIERZO): Descargado correctamente
+12:35:14 - Campo 715 (CLUB DE GOLF EL BONILLO): Descargado correctamente
+12:35:19 - Campo 627 (CLUB DE GOLF EL BOSQUE): Descargado correctamente
+12:35:24 - Campo 471 (FINCA CORTESIN GOLF CLUB): Descargado correctamente
+12:35:29 - Campo 587 (EL CORTIJO CLUB DE CAMPO): Descargado correctamente
+12:35:31 - Campo 1010 (EL ENCIN GOLF): Descargado correctamente
+12:35:36 - Campo 336 (CLUB DE GOLF EL ESPINAR): Descargado correctamente
+12:35:42 - Campo 419 (EL PARAÍSO GOLF CLUB): Descargado correctamente
+12:35:47 - Campo 648 (CLUB DE GOLF EL PLANTIO): Descargado correctamente
+12:35:53 - Campo 281 (REAL CLUB DE GOLF "EL PRAT"): Descargado correctamente
+12:35:58 - Campo 412 (): Descargado correctamente
+12:36:00 - Campo 555 (EL ROBLEDAL GOLF): Descargado correctamente
+12:36:05 - Campo 453 (GOLF EL ROMPIDO): Descargado correctamente
+12:36:10 - Campo 643 (CAMPO DE GOLF EL SALER): Descargado correctamente
+12:36:17 - Campo 588 (CLUB DE GOLF EL SALOBRE): Descargado correctamente
+12:38:18 - Campo 983 (EL VALLE): ERROR - HTTPSConnectionPool(host='rfegolf.es', port=443): Read timed out. (read timeout=10)
+12:38:51 - Campo 518 (EMPORDA): ERROR - HTTPSConnectionPool(host='rfegolf.es', port=443): Read timed out. (read timeout=10)
+12:39:24 - Campo 332 (ENTREPINOS): ERROR - HTTPSConnectionPool(host='rfegolf.es', port=443): Read timed out. (read timeout=10)
+12:39:57 - Campo 481 (ESC LA CARTUJA): ERROR - HTTPSConnectionPool(host='rfegolf.es', port=443): Read timed out. (read timeout=10)
+12:40:23 - Campo 979 (ESCALONA GOLF): Descargado correctamente
+12:40:24 - Campo 572 (ASOCIACION DE GOLF VILLA EL ESCORIAL): Descargado correctamente
+12:40:30 - Campo 628 (CLUB DE GOLF ESCORPION): Descargado correctamente
+12:40:35 - Campo 1172 (Asociación Deportiva Exilieta): Descargado correctamente
+12:40:36 - Campo 413 (FAIRPLAY GOLF & SPA RESORT): Descargado correctamente
+12:40:41 - Campo 651 (LA FINCA -ALGORFA GOLF): Descargado correctamente
+12:40:47 - Campo 641 (CLUB DE GOLF FONT DEL LLOP): Descargado correctamente
+12:40:52 - Campo 523 (FONTANALS GOLF): Descargado correctamente
+12:40:57 - Campo 655 (FORESSOS CLUB DE GOLF): Descargado correctamente
+12:41:02 - Campo 590 (GOLF CLUB FUERTEVENTURA): Descargado correctamente
+12:41:08 - Campo 1131 (GOLF CIUDAD REAL): Descargado correctamente
+12:41:13 - Campo 517 (GAUDÍ GOLF CLUB): Descargado correctamente
+12:41:18 - Campo 522 (): Descargado correctamente
+12:41:20 - Campo 920 (GOIBURU GOLF): Descargado correctamente
+12:41:25 - Campo 429 (CLUB DE GOLF CAMPANO): Descargado correctamente
+12:41:30 - Campo 330 (CLUB DE GOLF CANDELEDA): Descargado correctamente
+12:41:35 - Campo 325 (CLUB DE GOLF DE GORRAIZ): Descargado correctamente
+12:41:40 - Campo 290 (CLUB DE GOLF DE GUARA): Descargado correctamente
+12:41:45 - Campo 582 (GOLF DEL SUR): Descargado correctamente
+12:41:51 - Campo 302 (GOLF MUNICIPAL DE GIJÓN): Descargado correctamente
+12:41:56 - Campo 479 (CLUB HATO VERDE): Descargado correctamente
+12:42:01 - Campo 305 (CAMPO MUNICIPAL GOLF LAS CALDAS): Descargado correctamente
+12:42:03 - Campo 528 (GOLF LLEIDA & COUNTRY CLUB): Descargado correctamente
+12:42:08 - Campo 690 (CLUB DE GOLF MADERA III): Descargado correctamente
+12:42:09 - Campo 1106 (CLUB DE GOLF SANTA MARINA): Descargado correctamente
+12:42:14 - Campo 576 (GOLF SANTANDER S.A.): Descargado correctamente
+12:42:19 - Campo 1205 (Club de Campo de Golf de Xaz): Descargado correctamente
+12:42:25 - Campo 428 (GRANADA CLUB DE GOLF): Descargado correctamente
+12:42:30 - Campo 925 (GREENLIFE GOLF CLUB S.L.): Descargado correctamente
+12:42:35 - Campo 354 (GRIJOTA GOLF S.L.): Descargado correctamente
+12:42:40 - Campo 384 (GOLF DE GUADIANA, S.A.): Descargado correctamente
+12:42:45 - Campo 668 (HACIENDA RIQUELME GOLF): Descargado correctamente
+12:42:50 - Campo 277 (HACIENDA DEL ALAMO CLUB DE GOLF): Descargado correctamente
+12:42:56 - Campo 620 (HERCULES CLUB DE GOLF): Descargado correctamente
+12:43:01 - Campo 710 (CLUB DEPORTIVO DE GOLF "HIERRO 3 REINO DE LEON"): Descargado correctamente
+12:43:06 - Campo 502 (GOLF DE IBIZA): Descargado correctamente
+12:43:07 - Campo 1124 (IDP BASE AEREA DE ZARAGOZA): Descargado correctamente
+12:43:12 - Campo 626 (CLUB DE GOLF IFACH): Descargado correctamente
+12:43:17 - Campo 547 (INFINITUM): Descargado correctamente
+12:43:22 - Campo 960 (IRELORE GOLF ESKOLA): Descargado correctamente
+12:43:27 - Campo 1197 (ISLA CANELA LINKS): Descargado correctamente
+12:43:32 - Campo 450 (ISLA CANELA OLD COURSE): Descargado correctamente
+12:43:37 - Campo 335 (C. MUNICIPAL DE GOLF ISLA DOS AGUAS): Descargado correctamente
+12:43:42 - Campo 447 (ISLANTILLA GOLF RESORT, S.L): Descargado correctamente
+12:43:47 - Campo 919 (IZKI GOLF): Descargado correctamente
+12:43:52 - Campo 1137 (JANDÍA GOLF COURSE): Descargado correctamente
+12:43:58 - Campo 578 (GOLF  JARDIN  DE ARANJUEZ): Descargado correctamente
+12:44:03 - Campo 630 (CLUB DE GOLF DE JAVEA): Descargado correctamente
+12:44:08 - Campo 298 (REAL CLUB DE GOLF LA BARGANIZA): Descargado correctamente
+12:44:13 - Campo 440 (LA CALA RESORT): Descargado correctamente
+12:44:31 - Campo 981 (LA CAMINERA): Descargado correctamente
+12:44:36 - Campo 398 (CLUB DE GOLF LA CAÑADA): Descargado correctamente
+12:44:41 - Campo 601 (REAL CLUB DE GOLF DE LA CORUÑA): Descargado correctamente
+12:44:46 - Campo 356 (CLUB DEPORTIVO GOLF LA COTA): Descargado correctamente
+12:44:52 - Campo 569 (CLUB DE GOLF LA DEHESA): Descargado correctamente
+12:44:57 - Campo 427 (LA DUQUESA GOLF & COUNTRY CLUB): Descargado correctamente
+12:45:02 - Campo 924 (LA ENVIA GOLF): Descargado correctamente
+12:45:07 - Campo 755 (LA ESTANCIA GOLF): Descargado correctamente
+12:45:12 - Campo 984 (C.D. LA FAISANERA GOLF SEGOVIA): Descargado correctamente
+12:45:17 - Campo 303 (): Descargado correctamente
+12:45:18 - Campo 333 (CLUB DE CAMPO LA GALERA): Descargado correctamente
+12:45:23 - Campo 1018 (CAMPO DE GOLF LA GALIANA): Descargado correctamente
+12:45:28 - Campo 411 (PARQUE DEPORTIVO LA GARZA): Descargado correctamente
+12:45:33 - Campo 525 (CLUB DE GOLF LA GRAIERA): Descargado correctamente
+12:45:38 - Campo 443 (LA HACIENDA): Descargado correctamente
+12:45:43 - Campo 552 (REAL CLUB DE GOLF LA HERRERIA): Descargado correctamente
+12:45:48 - Campo 379 (CAMPO MUNICIPAL DE GOLF LA LAGUNILLA): Descargado correctamente
+12:45:50 - Campo 631 (GOLF AND COUNTRY CLUB LA MARQUESA): Descargado correctamente
+12:45:55 - Campo 484 (LA MONACILLA GOLF CLUB): Descargado correctamente
+12:46:00 - Campo 567 (REAL CLUB LA MORALEJA): Descargado correctamente
+12:46:29 - Campo 1134 (LA MORGAL SPORTS): Descargado correctamente
+12:46:34 - Campo 300 (): Descargado correctamente
+12:46:36 - Campo 929 (LA NORIA GOLF AND RESORT): Descargado correctamente
+12:46:41 - Campo 288 (REAL CLUB DE GOLF LA PEÑAZA): Descargado correctamente
+12:46:46 - Campo 667 (CLUB DE GOLF LA PERALEJA): Descargado correctamente
+12:46:51 - Campo 432 (LA QUINTA GOLF & COUNTRY CLUB): Descargado correctamente
+12:46:56 - Campo 458 (CLUB DE GOLF LA RESERVA DE SOTOGRANDE): Descargado correctamente
+12:47:01 - Campo 544 (GOLF LA ROCA): Descargado correctamente
+12:47:06 - Campo 436 (CLUB DE GOLF LA SIESTA): Descargado correctamente
+12:47:10 - Campo 669 (CLUB DE GOLF "UNITED GOLF RESORTS LA TERCIA"): Descargado correctamente
+12:47:12 - Campo 618 (REAL CLUB DE GOLF LA TOJA): Descargado correctamente
+12:47:17 - Campo 666 (LA TORRE GOLF): Descargado correctamente
+12:47:22 - Campo 355 (CLUB LA VALMUZA GOLF SALAMANCA): Descargado correctamente
+12:47:27 - Campo 365 (CLUB DE GOLF LA VEREDA): Descargado correctamente
+12:47:32 - Campo 369 (CLUB DE GOLF LAGUNA DE TITO): Descargado correctamente
+12:47:37 - Campo 599 (LANZAROTE GOLF): Descargado correctamente
+12:47:42 - Campo 917 (CLUB DE GOLF LARRABEA): Descargado correctamente
+12:47:47 - Campo 584 (CAMPO DE GOLF LAS AMERICAS): Descargado correctamente
+12:47:52 - Campo 396 (REAL CLUB DE GOLF LAS BRISAS): Descargado correctamente
+12:47:57 - Campo 691 (CLUB DE GOLF LAS CALDAS): Descargado correctamente
+12:48:02 - Campo 972 (LAS COLINAS GOLF & COUNTRY CLUB): Descargado correctamente
+12:48:07 - Campo 353 (CLUB DE GOLF LAS LLANÁS): Descargado correctamente
+12:48:13 - Campo 433 (CLUB DE CAMPO LAS MINAS GOLF): Descargado correctamente
+12:48:18 - Campo 373 (CLUB DE GOLF CASTILLA LA MANCHA): Descargado correctamente
+12:48:23 - Campo 652 (CAMPO DE GOLF LAS RAMBLAS DE CAMPOAMOR): Descargado correctamente
+12:49:09 - Campo 563 (LAS REJAS): ERROR - HTTPSConnectionPool(host='rfegolf.es', port=443): Read timed out. (read timeout=10)
+12:49:42 - Campo 913 (LAUKARIZ): ERROR - HTTPSConnectionPool(host='rfegolf.es', port=443): Read timed out. (read timeout=10)
+12:50:02 - Campo 442 (LAURO GOLF): Descargado correctamente
+12:50:07 - Campo 372 (LAYOS CASA CAMPO S.A.): Descargado correctamente
+12:50:12 - Campo 363 (LEON GOLF-PROSACYR): Descargado correctamente
+12:50:17 - Campo 334 (CLUB DE GOLF DE LERMA): Descargado correctamente
+12:50:22 - Campo 306 (GOLF MUNICIPAL DE LLANES): Descargado correctamente
+12:50:28 - Campo 509 (CLUB DE GOLF DE LLAVANERAS): Descargado correctamente
+12:50:33 - Campo 636 (CAMPO DE GOLF LO ROMERO): Descargado correctamente
+12:50:38 - Campo 554 (CLUB DE GOLF LOMAS BOSQUE): Descargado correctamente
+12:50:43 - Campo 1048 (LORCA RESORT GOLF CLUB): Descargado correctamente
+12:50:48 - Campo 309 (CLUB DE GOLF LOS BALAGARES): Descargado correctamente
+12:50:49 - Campo 291 (GOLF LOS LAGOS): Descargado correctamente
+12:50:55 - Campo 430 (LOS MORISCOS CLUB DE GOLF): Descargado correctamente
+12:50:59 - Campo 418 (LOS NARANJOS GOLF CLUB): Descargado correctamente
+12:51:05 - Campo 934 (CAMPO DE GOLF LOS PALOS): Descargado correctamente
+12:51:10 - Campo 308 (CLUB DE GOLF LUARCA): Descargado correctamente
+12:51:14 - Campo 619 (CLUB DE GOLF LUGO S.A.): Descargado correctamente
+12:51:19 - Campo 456 (LA LUNA DE DOÑANA. CLUB DE CAMPO Y GOLF): Descargado correctamente
+12:51:21 - Campo 460 (MAGNA MARBELLA GOLF): Descargado correctamente
+12:51:26 - Campo 498 (CLUB DEPORTIVO GOLF MAIORIS): Descargado correctamente
+12:51:31 - Campo 662 (MAR MENOR GOLF): Descargado correctamente
+12:51:36 - Campo 406 (GOLF MARBELLA & COUNTRY CLUB): Descargado correctamente
+12:51:41 - Campo 546 (GOLF SANT MARC-CLUB DE GOLF PUIGCERDÁ): Descargado correctamente
+12:51:46 - Campo 294 (MARGAS GOLF): Descargado correctamente
+12:51:51 - Campo 410 (CLUB MARINA GOLF-MOJACAR): Descargado correctamente
+12:51:56 - Campo 580 (CAMPO DE GOLF DE MASPALOMAS): Descargado correctamente
+12:52:01 - Campo 1123 (CLUB DE GOLF MATADEPERA): Descargado correctamente
+12:52:06 - Campo 914 (CAMPO DE GOLF MEAZTEGI S.A.): Descargado correctamente
+12:52:11 - Campo 1110 (MEDITERRANEO GOLF): Descargado correctamente
+12:52:18 - Campo 595 (MELONERAS GOLF): Descargado correctamente
+12:52:23 - Campo 1066 (ESCUELA DE GOLF MIGUEL ÁNGEL JIMÉNEZ): Descargado correctamente
+12:52:28 - Campo 424 (MIJAS GOLF INTERNACIONAL): Descargado correctamente
+12:52:33 - Campo 574 (CENTRO DEPORTIVO MILITAR LA DEHESA): Descargado correctamente
+12:53:09 - Campo 613 (): Descargado correctamente
+12:53:11 - Campo 1187 (MIÑO CLUB DE GOLF ARTABRO): Descargado correctamente
+12:53:16 - Campo 926 (MIRAFLORES GOLF): Descargado correctamente
+12:53:21 - Campo 516 (GOLF MONTANYA): Descargado correctamente
+12:53:28 - Campo 526 (CLUB DE GOLF MONTBRU-MOIA): Descargado correctamente
+12:53:32 - Campo 435 (): Descargado correctamente
+12:53:34 - Campo 455 (): Descargado correctamente
+12:53:35 - Campo 455 (): Descargado correctamente
+12:53:36 - Campo 381 (MONTEALVAR GOLF CLUB): Descargado correctamente
+12:53:42 - Campo 409 (MONTECASTILLO BARCELÓ GOLF CLUB): Descargado correctamente
+12:53:47 - Campo 407 (CAMPO DE GOLF DEHESA MONTENMEDIO): Descargado correctamente
+12:53:52 - Campo 370 (CLUB DE GOLF MUDELA): Descargado correctamente
+12:53:57 - Campo 342 (NATURAVILA GOLF): Descargado correctamente
+12:54:03 - Campo 345 (CLUB DE GOLF NAVAGRULLA): Descargado correctamente
+12:54:08 - Campo 350 (CLUB DE GOLF NAVALUENGA): Descargado correctamente
+12:54:13 - Campo 359 (CLUB DE GOLF  NAVARREVISCA): Descargado correctamente
+12:54:18 - Campo 911 (REAL SOCIEDAD GOLF DE NEGURI): Descargado correctamente
+12:54:25 - Campo 1210 (NEW CLUB CABANILLAS GOLF): Descargado correctamente
+12:54:30 - Campo 383 (NORBA CLUB DE GOLF): Descargado correctamente
+12:54:37 - Campo 439 (GOLF NUEVO PORTIL): Descargado correctamente
+12:54:42 - Campo 368 (OLALLA GOLF CLUB): Descargado correctamente
+12:54:47 - Campo 573 (CLUB DE GOLF OLIVAR DE LA HINOJOSA): Descargado correctamente
+12:54:52 - Campo 1188 (CLUB DEPORTIVO OLIMPICO DE LEÓN): Descargado correctamente
+12:54:57 - Campo 644 (CAMPO DE GOLF OLIVA-NOVA): Descargado correctamente
+12:55:02 - Campo 319 (CAMPO DE GOLF DE OYAMBRE): Descargado correctamente
+12:55:07 - Campo 1064 (CLUB DE GOLF PADERNE): Descargado correctamente
+12:55:12 - Campo 564 (PALACIO DEL NEGRALEJO S.A.): Descargado correctamente
+12:55:18 - Campo 564 (PALACIO DEL NEGRALEJO S.A.): Descargado correctamente
+12:55:19 - Campo 378 (PALOMAREJOS GOLF): Descargado correctamente
+12:55:24 - Campo 464 (PARADOR MÁLAGA DEL GOLF): Descargado correctamente
+12:55:29 - Campo 994 (PARRALUZ GOLF): Descargado correctamente
+12:55:34 - Campo 313 (REAL GOLF CLUB DE PEDREÑA): Descargado correctamente
+12:56:03 - Campo 527 (GOLF CLUB PERALADA): Descargado correctamente
+12:56:08 - Campo 538 (PGA CATALUNYA RESORT): Descargado correctamente
+12:56:13 - Campo 390 (REAL CLUB PINEDA DE SEVILLA): Descargado correctamente
+12:56:18 - Campo 539 (GOLF PLAYA DE PALS): Descargado correctamente
+12:56:23 - Campo 482 (): Descargado correctamente
+12:56:24 - Campo 425 (CLUB DE GOLF PLAYA SERENA): Descargado correctamente
+12:56:29 - Campo 1065 (PLAYITAS GOLF): Descargado correctamente
+12:56:34 - Campo 490 (CLUB DE GOLF DE POLLENSA): Descargado correctamente
+12:56:40 - Campo 397 (CLUB DE GOLF POZOBLANCO): Descargado correctamente
+12:56:45 - Campo 571 (CLUB DE GOLF DE POZUELO): Descargado correctamente
+12:56:50 - Campo 548 (REAL CLUB PUERTA  DE  HIERRO): Descargado correctamente
+12:56:55 - Campo 503 (CLUB ESPORTIU PULA GOLF): Descargado correctamente
+12:57:00 - Campo 575 (CLUB QUIJORNA GOLF): Descargado correctamente
+12:57:01 - Campo 402 (REAL NOVO SANCTI PETRI GOLF CLUB): Descargado correctamente
+12:57:06 - Campo 808 (REAL AERO CLUB DE SANTIAGO): Descargado correctamente
+12:57:12 - Campo 600 (REAL AERO CLUB DE VIGO): Descargado correctamente
+12:57:17 - Campo 551 (RACE): Descargado correctamente
+12:57:22 - Campo 299 (CLUB DE GOLF LA RASA DE BERBES): Descargado correctamente
+12:57:27 - Campo 415 (REAL CLUB DE GOLF GUADALMINA): Descargado correctamente
+12:57:32 - Campo 933 (REAL CLUB GOLF LAS PALMAS): Descargado correctamente
+12:57:37 - Campo 624 (REAL CLUB DE GOLF DE MANISES): Descargado correctamente
+12:57:42 - Campo 444 (REAL CLUB SEVILLA GOLF): Descargado correctamente
+12:57:47 - Campo 579 (REAL CLUB DE GOLF TENERIFE): Descargado correctamente
+12:57:53 - Campo 393 (REAL CLUB DE GOLF VISTA HERMOSA): Descargado correctamente
+12:57:58 - Campo 553 (REAL CLUB DE GOLF LAS ROZAS DE MADRID): Descargado correctamente
+12:58:03 - Campo 392 (REAL CLUB EL CANDADO): Descargado correctamente
+12:58:07 - Campo 400 (REAL GUADALHORCE CLUB DE GOLF): Descargado correctamente
+12:58:13 - Campo 657 (REAL LA MANGA CLUB): Descargado correctamente
+12:58:37 - Campo 604 (REAL MONTEALEGRE CLUB DE GOLF): Descargado correctamente
+12:58:42 - Campo 653 (CLUB DE GOLF REQUENA): Descargado correctamente
+12:58:47 - Campo 568 (GOLF LOS RETAMARES): Descargado correctamente
+12:58:52 - Campo 978 (REAL GOLF CLUB ZARAUZ): Descargado correctamente
+12:58:57 - Campo 621 (CLUB DE GOLF RIA DE VIGO): Descargado correctamente
+12:59:03 - Campo 514 (CLUB DE GOLF RIBERA SALADA): Descargado correctamente
+12:59:08 - Campo 416 (GOLF RÍO REAL): Descargado correctamente
+12:59:13 - Campo 349 (RIOCEREZO CLUB DE GOLF): Descargado correctamente
+12:59:18 - Campo 673 (RIOJA ALTA GOLF CLUB): Descargado correctamente
+12:59:23 - Campo 664 (RODA GOLF COURSE): Descargado correctamente
+12:59:28 - Campo 923 (GOLF LA ROQUETA): Descargado correctamente
+12:59:33 - Campo 472 (ROTA CLUB DE GOLF): Descargado correctamente
+12:59:38 - Campo 322 (CLUB DE GOLF ROVACIAS): Descargado correctamente
+12:59:43 - Campo 557 (REAL SOCIEDAD HÍPICA ESPAÑOLA CLUB DE CAMPO): Descargado correctamente
+12:59:48 - Campo 312 (PALACIO DE RUBIANES HOTEL & GOLF): Descargado correctamente
+12:59:53 - Campo 347 (SALAMANCA FORUM GOLF): Descargado correctamente
+12:59:58 - Campo 348 (CLUB DE GOLF SALAS DE LOS INFANTES): Descargado correctamente
+13:00:03 - Campo 362 (CLUB DEPORTIVO GOLF SALDAÑA DE BURGOS): Descargado correctamente
+13:00:09 - Campo 596 (GOLF CLUB SALINAS DE ANTIGUA): Descargado correctamente
+13:00:14 - Campo 401 (SAN ROQUE CLUB): Descargado correctamente
+13:00:21 - Campo 1229 (SAN ROQUE GOLF & RESORT): Descargado correctamente
+13:00:26 - Campo 910 (REAL GOLF CLUB  DE SAN SEBASTIAN): Descargado correctamente
+13:00:31 - Campo 473 (SANCTI PETRI HILLS GOLF): Descargado correctamente
+13:00:36 - Campo 506 (CLUB DE GOLF SANT CUGAT): Descargado correctamente
+13:00:41 - Campo 530 (): Descargado correctamente
+13:00:43 - Campo 434 (SANTA CLARA GOLF): Descargado correctamente
+13:00:48 - Campo 927 (SANTA MARÍA GOLF & COUNTRY CLUB): Descargado correctamente
+13:00:53 - Campo 501 (GOLF SANTA PONSA): Descargado correctamente
+13:00:58 - Campo 672 (SAURINES GOLF): Descargado correctamente
+13:01:03 - Campo 380 (CLUB DE GOLF SEÑORIO DE ILLESCAS): Descargado correctamente
+13:01:08 - Campo 326 (CLUB DE CAMPO SEÑORIO DE ZUASTI): Descargado correctamente
+13:01:13 - Campo 665 (SERENA GOLF): Descargado correctamente
+13:01:19 - Campo 317 (SEVERIANO BALLESTEROS LAVIN LA JUNQUERA GOLF): Descargado correctamente
+13:01:24 - Campo 459 (SHERRY GOLF JEREZ): Descargado correctamente
+13:01:29 - Campo 670 (CLUB SIERRA GOLF): Descargado correctamente
+13:01:34 - Campo 674 (CLUB DE GOLF SOJUELA): Descargado correctamente
+13:01:39 - Campo 280 (CLUB DE GOLF SON ANTEM): Descargado correctamente
+13:01:51 - Campo 499 (CLUB DE GOLF SON GUAL): Descargado correctamente
+13:01:56 - Campo 495 (SON MUNTANER GOLF): Descargado correctamente
+13:02:02 - Campo 488 (CLUB DE GOLF SON  PARC): Descargado correctamente
+13:02:07 - Campo 872 (CLUB SON QUINT GOLF): Descargado correctamente
+13:02:12 - Campo 487 (CLUB DE GOLF SON SERVERA): Descargado correctamente
+13:02:17 - Campo 504 (GOLF SON TERMENS S.A): Descargado correctamente
+13:02:22 - Campo 932 (SON VIDA CLUB DE GOLF): Descargado correctamente
+13:02:27 - Campo 352 (CLUB DE GOLF SORIA S.A.): Descargado correctamente
+13:02:32 - Campo 391 (REAL CLUB DE GOLF SOTOGRANDE): Descargado correctamente
+13:02:57 - Campo 1063 (CLUB DEPORTIVO GOLF SOTOVERDE): Descargado correctamente
+13:03:02 - Campo 489 (T GOLF CALVIA): Descargado correctamente
+13:03:07 - Campo 497 (T GOLF PALMA): Descargado correctamente
+13:03:12 - Campo 542 (TARADELL GOLF): Descargado correctamente
+13:03:17 - Campo 592 (TECINA GOLF): Descargado correctamente
+13:03:22 - Campo 507 (CLUB DE GOLF TERRAMAR): Descargado correctamente
+13:03:27 - Campo 366 (CLUB DE GOLF TOMELLOSO): Descargado correctamente
+13:03:28 - Campo 558 (CAMPO DE GOLF B.A. DE TORREJON): Descargado correctamente
+13:03:33 - Campo 529 (TORREMIRONA GOLF CLUB): Descargado correctamente
+13:03:38 - Campo 423 (GOLF TORREQUEBRADA): Descargado correctamente
+13:03:43 - Campo 374 (CLUB DEPORTIVO TORRIJOS GOLF): Descargado correctamente
+13:03:48 - Campo 324 (CLUB DE GOLF ULZAMA): Descargado correctamente
+13:03:53 - Campo 975 (URABURU GOLF KIROL ELKARTEA): Descargado correctamente
+13:03:59 - Campo 605 (CLUB DE GOLF VAL DE ROIS): Descargado correctamente
+13:04:04 - Campo 995 (GOLF ISLA VALDECAÑAS): Descargado correctamente
+13:04:10 - Campo 341 (CLUB DE GOLF VALDEMAZO): Descargado correctamente
+13:04:15 - Campo 861 (CLUB DE GOLF LA VALDENARRA DE BERCIAL): Descargado correctamente
+13:04:21 - Campo 337 (): Descargado correctamente
+13:04:22 - Campo 617 (): Descargado correctamente
+13:04:24 - Campo 500 (VALL D OR GOLF CLUB): Descargado correctamente
+13:04:29 - Campo 452 (VALLE DEL ESTE HOTEL GOLF SPA): Descargado correctamente
+13:04:34 - Campo 483 (VALLE ROMANO GOLF & RESORT): Descargado correctamente
+13:04:39 - Campo 1125 (VALLÉS GOLF): Descargado correctamente
+13:04:44 - Campo 511 (CLUB DE GOLF VALLROMANES): Descargado correctamente
+13:04:49 - Campo 540 (): Descargado correctamente
+13:04:50 - Campo 991 (CLUB DE GOLF VILLA DE CUELLAR): Descargado correctamente
+13:04:56 - Campo 549 (CLUB DE CAMPO VILLA DE MADRID): Descargado correctamente
+13:05:01 - Campo 466 (VILLA NUEVA GOLF RESORT): Descargado correctamente
+13:05:06 - Campo 414 (VILLA PADIERNA GOLF CLUB): Descargado correctamente
+13:05:11 - Campo 1061 (): Descargado correctamente
+13:05:12 - Campo 633 (MELIÁ VILLAITANA GOLF): Descargado correctamente
+13:05:17 - Campo 645 (CLUB DE GOLF VILLAMARTIN): Descargado correctamente
+13:05:22 - Campo 340 (CLUB DE GOLF VILLARIAS): Descargado correctamente
+13:05:27 - Campo 287 (CAMPO DE GOLF DE VILLARRIN): Descargado correctamente
+13:05:32 - Campo 304 (CLUB DE GOLF VILLAVICIOSA): Descargado correctamente
+13:05:37 - Campo 640 (VISTABELLA GOLF CLUB): Descargado correctamente
+13:05:42 - Campo 987 (WEGOLF): Descargado correctamente
+13:05:44 - Campo 1158 (Club de Campo La Zagaleta): Descargado correctamente
+13:05:56 - Campo 331 (CAMPO DE GOLF DE SALAMANCA): Descargado correctamente
+13:06:01 - Campo 449 (CLUB ZAUDÍN GOLF): Descargado correctamente
+13:06:06 - Campo 968 (ZUIA CLUB DE GOLF): Descargado correctamente
+
+
+Proceso completado. Total: 405, Éxitos: 399, Fallos: 6, Omitidos: 0
+Fin de descarga: 2025-03-23 13:06:10
